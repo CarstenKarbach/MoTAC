@@ -21,8 +21,8 @@
  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.karbach.tac"
-    android:versionCode="3"
-    android:versionName="1.2"
+    android:versionCode="4"
+    android:versionName="1.21"
     android:installLocation="auto" >
 
     <uses-sdk
