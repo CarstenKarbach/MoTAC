@@ -117,6 +117,8 @@
 	<string name="info_started">Start</string><string name="info_started_value">11/2013</string>
 	<string name="info_support">Unterstützung</string><string name="info_support_value">Vera Vennedey</string>
 													  <string name="info_support_value2">Kai Angne</string>
+	<string name="info_version">Version</string>
+													  
 													  
 <string name="overview_help">Mit MoTAC geht das Brettspiel TAC ganz einfach auf Reisen. 
 Nur die Karten und diese App einpacken und TAC Spielen wird überall möglich.

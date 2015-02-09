@@ -1,4 +1,4 @@
-<!-- 
+<!--
 	MoTAC - digital board for TAC board game
     Copyright (C) 2013-2014  Carsten Karbach
     
@@ -17,7 +17,7 @@
     You should have received a copy of the GNU General Public License along
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- -->
+    -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:karbach="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
@@ -27,159 +27,181 @@
     android:weightSum="100" >
 
     <ImageView
-	       	android:contentDescription="@string/app_name"
-	        android:id="@+id/teaser"
-	        android:layout_height="0dip"
-	        android:layout_width="match_parent"
-	        android:layout_weight="45"
-	        android:src="@drawable/infoteaser"
-	        android:scaleType="fitCenter"
-	        android:paddingBottom="30dp" />
-
-    <LinearLayout 
-        android:padding="15dp"
-        android:orientation="horizontal"
-        android:weightSum="100"
+        android:id="@+id/teaser"
         android:layout_width="match_parent"
-        android:layout_weight="40"
         android:layout_height="0dip"
-        android:gravity="center_horizontal"
+        android:layout_weight="45"
+        android:contentDescription="@string/app_name"
+        android:paddingBottom="30dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/infoteaser" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="50"
         android:background="@color/trans"
-        >
-    
-    <LinearLayout 
-        android:orientation="vertical"
-        android:weightSum="100"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        >
-    
-    <LinearLayout
+        android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:weightSum="100"
-        android:layout_weight="25"
-        android:layout_height="0dip"
-	    android:layout_width="match_parent"
-        >
+        android:padding="15dp"
+        android:weightSum="100" >
 
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|left"
-            android:paddingRight="10dp"
-            android:text="@string/info_developer"
-            android:textColor="@color/black"
-            android:textSize="7pt"
-            android:textStyle="bold" />
-        
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|left"
-            android:shadowColor="#ffcccccc"
-            android:shadowDx="3"
-            android:shadowDy="3"
-            android:shadowRadius="5"
-            android:text="@string/info_developer_value"
-            android:textColor="@color/black"
-            android:textSize="7pt" />
+            android:orientation="vertical"
+            android:weightSum="100" >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="20"
+                android:orientation="horizontal"
+                android:weightSum="100" >
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingRight="10dp"
+                    android:text="@string/info_developer"
+                    android:textColor="@color/black"
+                    android:textSize="7pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|left"
+                    android:shadowColor="#ffcccccc"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    android:text="@string/info_developer_value"
+                    android:textColor="@color/black"
+                    android:textSize="7pt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="20"
+                android:orientation="horizontal"
+                android:weightSum="100" >
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingRight="10dp"
+                    android:text="@string/info_started"
+                    android:textColor="@color/black"
+                    android:textSize="7pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|left"
+                    android:shadowColor="#ffcccccc"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    android:text="@string/info_started_value"
+                    android:textColor="@color/black"
+                    android:textSize="7pt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="20"
+                android:orientation="horizontal"
+                android:weightSum="100" >
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingRight="10dp"
+                    android:text="@string/info_support"
+                    android:textColor="@color/black"
+                    android:textSize="7pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|left"
+                    android:shadowColor="#ffcccccc"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    android:text="@string/info_support_value"
+                    android:textColor="@color/black"
+                    android:textSize="7pt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="20"
+                android:orientation="horizontal"
+                android:weightSum="100" >
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingRight="10dp"
+                    android:text=""
+                    android:textSize="7pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|left"
+                    android:shadowColor="#ffcccccc"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    android:text="@string/info_support_value2"
+                    android:textColor="@color/black"
+                    android:textSize="7pt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="20"
+                android:orientation="horizontal"
+                android:weightSum="100" >
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingRight="10dp"
+                    android:text="@string/info_version"
+                    android:textColor="@color/black"
+                    android:textSize="7pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/info_version_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|left"
+                    android:shadowColor="#ffcccccc"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="7pt" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-   <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="100"
-        android:layout_weight="25"
-        android:layout_height="0dip"
-	    android:layout_width="match_parent"
-        >
 
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|left"
-            android:paddingRight="10dp"
-            android:text="@string/info_started"
-            android:textColor="@color/black"
-            android:textSize="7pt"
-            android:textStyle="bold" />
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|left"
-            android:shadowColor="#ffcccccc"
-            android:shadowDx="3"
-            android:shadowDy="3"
-            android:shadowRadius="5"
-            android:text="@string/info_started_value"
-            android:textColor="@color/black"
-            android:textSize="7pt" />
-
-    </LinearLayout>
-    
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="100"
-        android:layout_weight="25"
-        android:layout_height="0dip"
-	    android:layout_width="match_parent"
-        >
-
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|left"
-            android:paddingRight="10dp"
-            android:text="@string/info_support"
-            android:textColor="@color/black"
-            android:textSize="7pt"
-            android:textStyle="bold" />
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|left"
-            android:shadowColor="#ffcccccc"
-            android:shadowDx="3"
-            android:shadowDy="3"
-            android:shadowRadius="5"
-            android:text="@string/info_support_value"
-            android:textColor="@color/black"
-            android:textSize="7pt" />
-
-    </LinearLayout>
-    
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="100"
-        android:layout_weight="25"
-        android:layout_height="0dip"
-	    android:layout_width="match_parent"
-        >
-        <TextView 
-        android:paddingRight="10dp"
-        android:layout_width="140dp"
-	    android:layout_height="match_parent"
-	    android:gravity="center_vertical|left"
-	    android:textStyle="bold"
-	    android:textSize="7pt"
-	    android:text="" />
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|left"
-            android:shadowColor="#ffcccccc"
-            android:shadowDx="3"
-            android:shadowDy="3"
-            android:shadowRadius="5"
-            android:text="@string/info_support_value2"
-            android:textColor="@color/black"
-            android:textSize="7pt" />
-
-    </LinearLayout>
-
-    </LinearLayout>
-    
-    </LinearLayout>
 </LinearLayout>

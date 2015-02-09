@@ -21,11 +21,14 @@
 
 package de.karbach.tac.ui.fragments;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import de.karbach.tac.R;
 
 /**
@@ -39,6 +42,17 @@ public class AboutFragment extends Fragment{
 			Bundle savedInstanceState) {
 		
 		View result = inflater.inflate(R.layout.info, container, false);
+		
+		//Show the version name
+		TextView versionText = (TextView) result.findViewById(R.id.info_version_value);
+		if(versionText != null){
+			try {
+				PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+				versionText.setText(pInfo.versionName);
+			} catch (NameNotFoundException e) {
+				versionText.setText("-");
+			}
+		}
 		
 		return result;
 	}

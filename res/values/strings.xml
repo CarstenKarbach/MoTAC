@@ -121,6 +121,7 @@
 	<string name="info_started">Started</string><string name="info_started_value">11/2013</string>
 	<string name="info_support">Support</string><string name="info_support_value">Vera Vennedey</string>
 												<string name="info_support_value2">Kai Angne</string>
+	<string name="info_version">Version</string>
 	
 <string name="overview_help">MoTAC is a mobile board for the TAC board game. 
 This app and your TAC cards is all you need to play TAC everywhere.
