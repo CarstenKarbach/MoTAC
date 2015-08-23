@@ -38,7 +38,6 @@ import de.karbach.tac.ui.fragments.LocalBoard;
  */
 public class TAC extends FragmentActivity {
 
-
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
 	 */
