@@ -56,7 +56,7 @@ public class TAC extends FragmentActivity {
 			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 			transaction.add(R.id.fragment_container, localboard);
 			transaction.commit();
-			
+
 			/*ModeChooser modeChooser = new ModeChooser();
 			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 			transaction.add(R.id.fragment_container, modeChooser);
