@@ -118,6 +118,7 @@
 	<string name="info_support">Unterstützung</string><string name="info_support_value">Vera Vennedey</string>
 													  <string name="info_support_value2">Kai Angne</string>
 	<string name="info_version">Version</string>
+    <string name="lastmoves">Letzte Züge</string>
 													  
 													  
 <string name="overview_help">Mit MoTAC geht das Brettspiel TAC ganz einfach auf Reisen. 

@@ -231,7 +231,7 @@ public class Board extends View implements DataChangeListener{
 	/**
 	 * Factor with which the card width is calculated
 	 */
-	protected final double cardWidthFactor = 0.12; 
+	public static final double cardWidthFactor = 0.12;
 	
 	/**
 	 * Rectangle used in paintings, to avoid constructor calls in draw function.

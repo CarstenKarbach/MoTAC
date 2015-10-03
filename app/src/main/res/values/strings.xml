@@ -106,6 +106,9 @@
     <string name="boardhelp">For normal playing deactivate the color switch and move buttons. Double-tap on a startfield to bring a ball into the game. You can move every ball arbitrarily over the board per drag-and-drop. Use a single-tap on a ball to display all allowed moves. Select the card you would like to play and tap on the target field to place the ball on it.</string>
     <string name="close_string">Close</string>
     <string name="next_string">More</string>
+
+    <string name="emptyid">-</string>
+    <string name="lastmoves">Last Moves</string>
     
     <string name="cardselect">Select card layout</string>
     <string-array name="cardtypes">

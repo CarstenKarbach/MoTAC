@@ -24,8 +24,10 @@ package de.karbach.tac.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
@@ -441,6 +443,18 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
 		float y = e.getY()-absPosition[1];
 		Point2D rescaledPoint = viewdata.invScale((int)x, (int)y);
 		if(rescaledPoint.x>min || rescaledPoint.y>min || rescaledPoint.x<0 || rescaledPoint.y<0){
+			return false;
+		}
+
+		/**
+		 * Check if center was clicked, then show list of moves
+		 */
+		double center = min*0.5;
+		double centerDistance = Math.sqrt((rescaledPoint.x-center)*(rescaledPoint.x-center)+(rescaledPoint.y-center)*(rescaledPoint.y-center));
+		if(centerDistance < BoardWithCards.cardWidthFactor*min){ // If user clicked in the middle of the field:
+			Activity activity = this.fragment.getActivity();
+			Intent showMoveListIntent = new Intent(activity, MoveListActivity.class);
+			this.fragment.getActivity().startActivity(showMoveListIntent);
 			return false;
 		}
 
