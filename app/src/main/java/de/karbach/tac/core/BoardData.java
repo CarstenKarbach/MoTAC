@@ -821,8 +821,11 @@ public class BoardData implements Serializable{
 		int tmp = b.getBallID();
 		b.setBallID(a.getBallID());
 		a.setBallID(tmp);
-		
-		playedCards.addCard(new Card("trickser"));
+
+		Card card = new Card("trickser");
+		card.setInvolvedBallIDs(new int[]{a.getBallID(), b.getBallID()});
+
+		playedCards.addCard(card);
 
 		saveSnapshot();
 		notifyChange(ChangeType.ballsSwitched);

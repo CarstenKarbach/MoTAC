@@ -85,6 +85,9 @@ public class MoveListFragment extends ListFragment{
             TextView idview = (TextView) convertView.findViewById(R.id.id_textview);
             ImageView cardview = (ImageView) convertView.findViewById(R.id.card_imageview);
             ImageView ballview = (ImageView) convertView.findViewById(R.id.ball_imageview);
+            ImageView ballview2 = (ImageView) convertView.findViewById(R.id.ball2_imageview);
+
+            ballview2.setImageBitmap(null);
 
             if(m.getId() != -1){
                 idview.setText(String.valueOf(m.getId()));
@@ -100,9 +103,25 @@ public class MoveListFragment extends ListFragment{
                 cardview.setImageResource(R.drawable.backside);
             }
 
-            Bitmap bm = ballIDToBMP.get(m.getBallID());
-            if(bm == null){
+            int[] ballIds = m.getBallIDs();
+            Bitmap bm = null;
+            if(ballIds == null){
                 bm = ballIDToBMP.get(R.drawable.grey);
+            }
+            else{
+                if(ballIds.length >= 1){
+                    bm = ballIDToBMP.get(ballIds[0]);
+                }
+                if(bm == null){
+                    bm = ballIDToBMP.get(R.drawable.grey);
+                }
+
+                if(ballIds.length >= 2){
+                    Bitmap bm2 = ballIDToBMP.get(ballIds[1]);
+                    if(bm2 != null){
+                        ballview2.setImageBitmap(bm2);
+                    }
+                }
             }
             ballview.setImageBitmap(bm);
 
@@ -111,6 +130,7 @@ public class MoveListFragment extends ListFragment{
     }
 
     public MoveListFragment(){
+        setRetainInstance(true);
         moves = new ArrayList<Move>();
     }
 

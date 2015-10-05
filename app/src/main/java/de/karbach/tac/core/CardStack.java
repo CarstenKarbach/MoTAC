@@ -106,7 +106,11 @@ public class CardStack implements Serializable{
 		for(int i=cards.size()-1; i>=0; i--){
 			Card c = cards.get(i);
 			int moveId = getTotalSize()-((cards.size()-1)-i);
-			Move m = new Move(c, c.getPlayedById()*4);//Here the ID is the actual ball's ID
+			int[] involvedBalls = c.getInvolvedBallIDs();
+			if(involvedBalls == null){
+				involvedBalls = new int[]{c.getPlayedById()*4};
+			}
+			Move m = new Move(c, involvedBalls);//Here the ID is the actual ball's ID
 			m.setId(moveId);
 			result.add(m);
 		}

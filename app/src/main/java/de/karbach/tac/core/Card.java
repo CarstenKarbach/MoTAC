@@ -128,6 +128,28 @@ public class Card implements Serializable{
 	private int playedById = -1;
 
 	/**
+	 *
+	 * @return Array holding the IDs for all balls involved in this move, or null, if this was not set
+	 */
+	public int[] getInvolvedBallIDs() {
+		return involvedBallIDs;
+	}
+
+	/**
+	 * Set all ball IDs, which are involved in the playing of this card
+	 * @param involvedBallIDs Array holding the IDs for all balls involved in this move.
+	 */
+	public void setInvolvedBallIDs(int[] involvedBallIDs) {
+		this.involvedBallIDs = involvedBallIDs;
+	}
+
+	/**
+	 * Array holding the IDs for all balls involved in this move.
+	 * This is especially interesting for the trickser card.
+	 */
+	private int[] involvedBallIDs;
+
+	/**
 	 * @return the player ID of the player, who played this card or -1, if the player is unknown
 	 */
 	public int getPlayedById() {

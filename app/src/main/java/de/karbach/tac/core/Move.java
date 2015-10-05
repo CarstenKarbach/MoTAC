@@ -14,9 +14,9 @@ public class Move implements Serializable{
     protected Card card;
 
     /**
-     * The ID of the ball, which was moved or made the move
+     * The IDs of the balls, which were moved or made the move
      */
-    protected int ballID;
+    protected int[] ballIDs;
 
     /**
      * The ID of this move
@@ -32,17 +32,17 @@ public class Move implements Serializable{
      * Create empty move
      */
     public Move(){
-        this(null, -1);
+        this(null, null);
     }
 
     /**
      * Create a move entry.
      * @param c the played card or null if unknown
-     * @param ballID the players ball or -1 if unknown
+     * @param ballIDs the players ball or -1 if unknown
      */
-    public Move(Card c, int ballID){
+    public Move(Card c, int[] ballIDs){
         setCard(c);
-        setBallID(ballID);
+        setBallIDs(ballIDs);
         idcounter++;
         setId(idcounter);
     }
@@ -88,13 +88,13 @@ public class Move implements Serializable{
 
     /**
      *
-     * @return the ID of the player ball or -1 if unknown
+     * @return the IDs of the player balls or null if unknown
      */
-    public int getBallID() {
-        return ballID;
+    public int[] getBallIDs() {
+        return ballIDs;
     }
 
-    public void setBallID(int ballID) {
-        this.ballID = ballID;
+    public void setBallIDs(int[] ballIDs) {
+        this.ballIDs = ballIDs;
     }
 }
