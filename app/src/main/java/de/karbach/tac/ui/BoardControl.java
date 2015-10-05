@@ -87,6 +87,11 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
 	 * Listens for preference changes
 	 */
 	private OnSharedPreferenceChangeListener prefListener;
+
+	/**
+	 * Multiply the length of the board with this factor to get the radius for the center circle
+	 */
+	public static float centerFactor = 0.125f;
 	
 	
 	/**
@@ -451,7 +456,7 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
 		 */
 		double center = min*0.5;
 		double centerDistance = Math.sqrt((rescaledPoint.x-center)*(rescaledPoint.x-center)+(rescaledPoint.y-center)*(rescaledPoint.y-center));
-		if(centerDistance < BoardWithCards.cardWidthFactor*min){ // If user clicked in the middle of the field:
+		if(centerDistance < centerFactor*min){ // If user clicked in the middle of the field:
 			Activity activity = this.fragment.getActivity();
 			Intent showMoveListIntent = new Intent(activity, MoveListActivity.class);
 			this.fragment.getActivity().startActivity(showMoveListIntent);
