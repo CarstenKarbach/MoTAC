@@ -94,7 +94,26 @@ public class CardStack implements Serializable{
 		this.maximumCardsStored = maximumCardsStored;
 		removeCardsByLimit();
 	}
-	
+
+	/**
+	 * Generate a list of moves from this card stack.
+	 *
+	 * @return list of moves stored in this stack
+	 */
+	public ArrayList<Move> toMoveList(){
+		ArrayList<Move> result = new ArrayList<Move>();
+		//Generate a reverse list of moves, the last one is stored in the result as the first
+		for(int i=cards.size()-1; i>=0; i--){
+			Card c = cards.get(i);
+			int moveId = getTotalSize()-((cards.size()-1)-i);
+			Move m = new Move(c, c.getPlayedById()*4);//Here the ID is the actual ball's ID
+			m.setId(moveId);
+			result.add(m);
+		}
+
+		return result;
+	}
+
 	/**
 	 * Remove the older cards, if there are more cards stored than allowed
 	 * by the maximumCardsStored limit.

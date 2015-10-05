@@ -33,8 +33,6 @@ public class MoveListActivity extends SingleFragmentActivity {
             }
         }
 
-        movefragment.addMove( new Move(new Card("1"), 10) );
-
         return movefragment;
     }
 

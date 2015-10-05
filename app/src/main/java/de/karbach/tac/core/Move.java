@@ -54,6 +54,10 @@ public class Move implements Serializable{
         idcounter=0;
     }
 
+    /**
+     * Set the ID for this move in the game
+     * @param id the new ID for this move
+     */
     public void setId(int id) {
         this.id = id;
     }

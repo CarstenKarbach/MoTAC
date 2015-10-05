@@ -42,6 +42,7 @@ import de.karbach.tac.core.BoardData;
 import de.karbach.tac.core.BoardViewData;
 import de.karbach.tac.core.Card;
 import de.karbach.tac.core.CardStack;
+import de.karbach.tac.core.Move;
 import de.karbach.tac.core.Point;
 import de.karbach.tac.core.Point2D;
 import de.karbach.tac.ui.fragments.CardGridDialog;
@@ -457,8 +458,11 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
 		double center = min*0.5;
 		double centerDistance = Math.sqrt((rescaledPoint.x-center)*(rescaledPoint.x-center)+(rescaledPoint.y-center)*(rescaledPoint.y-center));
 		if(centerDistance < centerFactor*min){ // If user clicked in the middle of the field:
+			ArrayList<Move> moves = data.getPlayedCards().toMoveList();
+
 			Activity activity = this.fragment.getActivity();
 			Intent showMoveListIntent = new Intent(activity, MoveListActivity.class);
+			showMoveListIntent.putExtra(MoveListActivity.MOVE_LIST, moves);
 			this.fragment.getActivity().startActivity(showMoveListIntent);
 			return false;
 		}
