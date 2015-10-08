@@ -21,6 +21,11 @@ public class MoveListActivity extends SingleFragmentActivity {
      */
     public static final String MOVE_LIST = "de.karbach.tac.ui.move_list";
 
+    /**
+     * Parameter name for the list of colors currently set for the balls
+     */
+    public static final String COLOR_LIST = "de.karbach.tac.ui.color_list";
+
     @Override
     protected Fragment createFragment() {
         MoveListFragment movefragment = new MoveListFragment();
@@ -31,6 +36,11 @@ public class MoveListActivity extends SingleFragmentActivity {
             for (Move m : movelist) {
                 movefragment.addMove(m);
             }
+        }
+
+        List<Integer> colorlist = getIntent().getIntegerArrayListExtra(COLOR_LIST);
+        if(colorlist != null){
+            movefragment.setColors(colorlist);
         }
 
         return movefragment;

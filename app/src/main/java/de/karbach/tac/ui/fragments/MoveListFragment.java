@@ -34,6 +34,11 @@ public class MoveListFragment extends ListFragment{
     private List<Move> moves;
 
     /**
+     * List of colors, first color for first player and so forth
+     */
+    private List<Integer> colors;
+
+    /**
      * Adapter for showing moves
      */
     private class MoveAdapter extends ArrayAdapter<Move>{
@@ -43,10 +48,16 @@ public class MoveListFragment extends ListFragment{
         private HashMap<Integer, Integer> ballIDToColor;
         private HashMap<Integer, Bitmap> ballIDToBMP;
 
-        public MoveAdapter(List<Move> objects) {
+        private List<Integer> colors;
+
+        public MoveAdapter(List<Move> objects, List<Integer> colors) {
             super(getActivity(), 0, objects);
 
             colorToImage = new ColorToBallImage(getContext());
+            this.colors = colors;
+            if(this.colors == null){
+                this.colors = new BoardData().getColors();
+            }
             initBallColors();
         }
 
@@ -58,12 +69,10 @@ public class MoveListFragment extends ListFragment{
             ballIDToColor = new HashMap<Integer, Integer>();
             ballIDToBMP = new HashMap<Integer, Bitmap>();
 
-            BoardData data = new BoardData();
-
             int players = 4;
 
             for(int col=0; col<players; col++ ){
-                int color = data.getColors().get(col);
+                int color = colors.get(col);
                 for(int id = 0+col*players; id<(col+1)*players; id++){
                     ballIDToColor.put(id, color);
                     ballIDToBMP.put(id, colorToImage.colorToBitmap(color));
@@ -155,11 +164,27 @@ public class MoveListFragment extends ListFragment{
         this.moves.clear();
     }
 
+    /**
+     *
+     * @return list of colors used for each player
+     */
+    public List<Integer> getColors() {
+        return colors;
+    }
+
+    /**
+     * Set the colors to show for players
+     * @param colors list of colors
+     */
+    public void setColors(List<Integer> colors) {
+        this.colors = colors;
+    }
+
     @Override
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
 
-        setListAdapter(new MoveAdapter(moves) );
+        setListAdapter(new MoveAdapter(moves, colors) );
     }
 
 }

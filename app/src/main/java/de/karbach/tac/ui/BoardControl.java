@@ -463,6 +463,8 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
 			Activity activity = this.fragment.getActivity();
 			Intent showMoveListIntent = new Intent(activity, MoveListActivity.class);
 			showMoveListIntent.putExtra(MoveListActivity.MOVE_LIST, moves);
+			ArrayList<Integer> colors = new ArrayList<Integer>(data.getColors());
+			showMoveListIntent.putIntegerArrayListExtra(MoveListActivity.COLOR_LIST, colors);
 			this.fragment.getActivity().startActivity(showMoveListIntent);
 			return false;
 		}
