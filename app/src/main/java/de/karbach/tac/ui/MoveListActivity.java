@@ -29,9 +29,7 @@ public class MoveListActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
         MoveListFragment movefragment = new MoveListFragment();
-
         List<Move> movelist = (List<Move>) getIntent().getSerializableExtra(MOVE_LIST);
-
         if(movelist != null) {
             for (Move m : movelist) {
                 movefragment.addMove(m);
