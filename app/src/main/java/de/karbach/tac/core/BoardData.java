@@ -20,6 +20,7 @@
  */
 package de.karbach.tac.core;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -34,6 +35,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+
 import de.karbach.tac.core.DataChangeEvent.ChangeType;
 
 /**
@@ -85,7 +87,7 @@ public class BoardData implements Serializable{
 	 * Number of cards stored in the above stack.
 	 * The maximum number of history steps stored, too.
 	 */
-	private static final int maximumStepsStored = 11;
+	private static final int maximumStepsStored = 101;
 	
 	/**
 	 * Colors for the player balls
@@ -121,110 +123,145 @@ public class BoardData implements Serializable{
 	public BoardData(){
 		history = new ArrayList<ArrayList<Point>>();
 
-		points = new ArrayList<Point>();
+		points = getStartPoints();
 		
 		playedCards = new CardStack();
 		
 		listeners = new ArrayList<DataChangeListener>();
 
-		double radiusFactor = 0.9;
-
-		//Generate outer circle
-		double part = 360.0/numCircleFields;
-		for(int i=0; i<numCircleFields; i++){
-			double radian = part*i/360.0*2*Math.PI;
-			float posx = (float)(0.5+Math.cos(radian)/2*radiusFactor);
-			float posy = (float)(0.5+Math.sin(radian)/2*radiusFactor);
-
-			Point p = new Point(posx, posy);
-			points.add(p);
-		}
-
-		//Generate start fields in corners
-		float middle = 0.08f;//Middle of rectabngle for start fields
-		float diff = 0.02f;
-		//Upper left rectangle
-		points.add(new Point(middle-diff,middle-diff, 0));
-		points.add(new Point(middle+diff,middle-diff, 1));
-		points.add(new Point(middle-diff,middle+diff, 2));
-		points.add( new Point(middle+diff,middle+diff, 3));
-		//Upper right
-		points.add(new Point(1-(middle-diff),middle-diff, 4 ));
-		points.add(new Point(1-(middle+diff),middle-diff, 5));
-		points.add(new Point(1-(middle-diff),middle+diff, 6));
-		points.add(new Point(1-(middle+diff),middle+diff, 7));
-		//Lower right
-		points.add(new Point(1-(middle-diff),1-(middle-diff), 8));
-		points.add(new Point(1-(middle+diff),1-(middle-diff), 9));
-		points.add(new Point(1-(middle-diff),1-(middle+diff), 10));
-		points.add(new Point(1-(middle+diff),1-(middle+diff), 11));
-		//Lower left
-		points.add(new Point(middle-diff,1-(middle-diff), 12));
-		points.add(new Point(middle+diff,1-(middle-diff), 13));
-		points.add(new Point(middle-diff,1-(middle+diff), 14));
-		points.add(new Point(middle+diff,1-(middle+diff), 15));
-
-		//Generate target fields
-		//Upper left
-		Point target = new Point(0.5f, 0.18f);
-		target.setTargetField(true);
-		points.add(target );//80
-		target = new Point(0.57f, 0.29f);
-		target.setTargetField(true);
-		points.add(target );//81
-		target = new Point(0.5f, 0.33f);
-		target.setTargetField(true);
-		points.add(target );//82
-		target = new Point(0.43f, 0.29f);
-		target.setTargetField(true);
-		points.add(target );//83
-		
-		//Lower right
-		target = new Point(0.5f, 1-0.18f);
-		target.setTargetField(true);
-		points.add(target );//84
-		target = new Point(0.43f, 0.702f);
-		target.setTargetField(true);
-		points.add(target );//85
-		target = new Point(0.5f, 0.665f);
-		target.setTargetField(true);
-		points.add(target );//86
-		target = new Point(0.57f, 0.702f);
-		target.setTargetField(true);
-		points.add(target );//87
-		//Lower left
-		target = new Point(0.218f, 0.418f);
-		target.setTargetField(true);
-		points.add(target );//88
-		target = new Point(0.2845f, 0.456f);
-		target.setTargetField(true);
-		points.add(target );//89
-		target = new Point(0.2845f, 0.536f);
-		target.setTargetField(true);
-		points.add(target );//90
-		target = new Point(0.218f, 0.577f);
-		target.setTargetField(true);
-		points.add(target );//91
-		//Upper right
-		target = new Point(1-0.218f-0.004f, 0.577f);
-		target.setTargetField(true);
-		points.add(target );//92
-		target = new Point(1-0.2845f-0.004f, 0.536f);
-		target.setTargetField(true);
-		points.add(target );//93
-		target = new Point(1-0.2845f-0.004f, 0.456f);
-		target.setTargetField(true);
-		points.add(target );//94
-		target = new Point(1-0.218f-0.004f, 0.418f);
-		target.setTargetField(true);
-		points.add(target );//95
-		
 		initColors();
 		
 		initAfterLoading();
 
 		saveSnapshot();
 	}
+
+    /**
+     * Use the start point setting. Init the fields only with the balls given
+     * as parameter. Set all other point's ball ID to -1. This allows to generate
+     * the entire point field by saving only those fields, which actually have a
+     * ball on them.
+     *
+     * @param ballsOnly list of all Points, which do have balls on
+     * @return point field inited with the ballsOnly parameter
+     */
+    protected ArrayList<Point> getPointFieldInitedWithBalls(ArrayList<Point> ballsOnly){
+        ArrayList<Point> result = getStartPoints();
+        for(Point resPoint: result){
+            resPoint.setBallID(-1);
+            for(Point ballPoint: ballsOnly){
+                double distance = (resPoint.getPosX()-ballPoint.getPosX())*(resPoint.getPosX()-ballPoint.getPosX())+(resPoint.getPosY()-ballPoint.getPosY())*(resPoint.getPosY()-ballPoint.getPosY());
+                if(distance < 0.00001){//Are these identical points?
+                    resPoint.setBallID( ballPoint.getBallID() );
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get a list of all points and their initial ball locations
+     * when a new game is started.
+     *
+     * @return list of all points of the field
+     */
+    protected ArrayList<Point> getStartPoints(){
+        ArrayList<Point> result = new ArrayList<Point>();
+
+        double radiusFactor = 0.9;
+
+        //Generate outer circle
+        double part = 360.0/numCircleFields;
+        for(int i=0; i<numCircleFields; i++){
+            double radian = part*i/360.0*2*Math.PI;
+            float posx = (float)(0.5+Math.cos(radian)/2*radiusFactor);
+            float posy = (float)(0.5+Math.sin(radian)/2*radiusFactor);
+
+            Point p = new Point(posx, posy);
+            result.add(p);
+        }
+
+        //Generate start fields in corners
+        float middle = 0.08f;//Middle of rectabngle for start fields
+        float diff = 0.02f;
+        //Upper left rectangle
+        result.add(new Point(middle-diff,middle-diff, 0));
+        result.add(new Point(middle+diff,middle-diff, 1));
+        result.add(new Point(middle-diff,middle+diff, 2));
+        result.add( new Point(middle+diff,middle+diff, 3));
+        //Upper right
+        result.add(new Point(1-(middle-diff),middle-diff, 4 ));
+        result.add(new Point(1-(middle+diff),middle-diff, 5));
+        result.add(new Point(1-(middle-diff),middle+diff, 6));
+        result.add(new Point(1-(middle+diff),middle+diff, 7));
+        //Lower right
+        result.add(new Point(1-(middle-diff),1-(middle-diff), 8));
+        result.add(new Point(1-(middle+diff),1-(middle-diff), 9));
+        result.add(new Point(1-(middle-diff),1-(middle+diff), 10));
+        result.add(new Point(1-(middle+diff),1-(middle+diff), 11));
+        //Lower left
+        result.add(new Point(middle-diff,1-(middle-diff), 12));
+        result.add(new Point(middle+diff,1-(middle-diff), 13));
+        result.add(new Point(middle-diff,1-(middle+diff), 14));
+        result.add(new Point(middle+diff,1-(middle+diff), 15));
+
+        //Generate target fields
+        //Upper left
+        Point target = new Point(0.5f, 0.18f);
+        target.setTargetField(true);
+        result.add(target );//80
+        target = new Point(0.57f, 0.29f);
+        target.setTargetField(true);
+        result.add(target );//81
+        target = new Point(0.5f, 0.33f);
+        target.setTargetField(true);
+        result.add(target );//82
+        target = new Point(0.43f, 0.29f);
+        target.setTargetField(true);
+        result.add(target );//83
+
+        //Lower right
+        target = new Point(0.5f, 1-0.18f);
+        target.setTargetField(true);
+        result.add(target );//84
+        target = new Point(0.43f, 0.702f);
+        target.setTargetField(true);
+        result.add(target );//85
+        target = new Point(0.5f, 0.665f);
+        target.setTargetField(true);
+        result.add(target );//86
+        target = new Point(0.57f, 0.702f);
+        target.setTargetField(true);
+        result.add(target );//87
+        //Lower left
+        target = new Point(0.218f, 0.418f);
+        target.setTargetField(true);
+        result.add(target );//88
+        target = new Point(0.2845f, 0.456f);
+        target.setTargetField(true);
+        result.add(target );//89
+        target = new Point(0.2845f, 0.536f);
+        target.setTargetField(true);
+        result.add(target );//90
+        target = new Point(0.218f, 0.577f);
+        target.setTargetField(true);
+        result.add(target );//91
+        //Upper right
+        target = new Point(1-0.218f-0.004f, 0.577f);
+        target.setTargetField(true);
+        result.add(target );//92
+        target = new Point(1-0.2845f-0.004f, 0.536f);
+        target.setTargetField(true);
+        result.add(target );//93
+        target = new Point(1-0.2845f-0.004f, 0.456f);
+        target.setTargetField(true);
+        result.add(target );//94
+        target = new Point(1-0.218f-0.004f, 0.418f);
+        target.setTargetField(true);
+        result.add(target );//95
+
+        return result;
+    }
 	
 	/**
 	 * 
@@ -702,7 +739,7 @@ public class BoardData implements Serializable{
 		while(history.size() > historyPosition+1){
 			history.remove(history.size()-1);
 		}
-		history.add(getSnapshot());
+		history.add(getSnapshot());//Store only inited fields with balls on
 		//Remove those steps, which are too much
 		while(history.size() > maximumStepsStored){
 			history.remove(0);
@@ -714,16 +751,34 @@ public class BoardData implements Serializable{
 
 	/**
 	 * Makes snapshot of current situation of the board.
+     * Only returns the points, which have balls located on.
+     *
 	 * @return deep copy of current points
 	 */
 	protected ArrayList<Point> getSnapshot(){
 		ArrayList<Point> res = new ArrayList<Point>();
 
 		for( Point p: points){
-			res.add( p.copy() );
+            if(p.getBallID() != -1) {
+                res.add(p.copy());
+            }
 		}
 		return res;
 	}
+
+    /**
+     * Convert a list given by getSnapshot into a full grown field with all points.
+     *
+     * @param snapPoints the points, which house balls, empty fields need to be refilled here
+     * @return full set of points inited with the snapshot points
+     */
+    protected ArrayList<Point> getAllPointsFromSnapshot(ArrayList<Point> snapPoints){
+        if(snapPoints.size() > 4*4){
+            return snapPoints;
+        }
+        ArrayList<Point> result = getPointFieldInitedWithBalls(snapPoints);
+        return result;
+    }
 
 	/**
 	 * Searches for the startfield among all points
@@ -843,7 +898,7 @@ public class BoardData implements Serializable{
 		}
 		points = history.get(historyPosition);
 		//Copy points
-		points = getSnapshot();
+		points = getAllPointsFromSnapshot(getSnapshot());
 		connectNeighbours();
 		mapPlayerIdsToTargetFields();
 		
@@ -865,7 +920,7 @@ public class BoardData implements Serializable{
 		}
 		points = history.get(historyPosition);
 		//Copy points
-		points = getSnapshot();
+		points = getAllPointsFromSnapshot(getSnapshot());
 		connectNeighbours();
 		mapPlayerIdsToTargetFields();
 		
@@ -898,7 +953,7 @@ public class BoardData implements Serializable{
 			ObjectOutputStream oOut = new ObjectOutputStream(activity.openFileOutput(filename, Context.MODE_PRIVATE));
 			oOut.writeObject(this);
 			oOut.close();
-			
+
 			notifyChange(ChangeType.dataSaved);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -974,7 +1029,7 @@ public class BoardData implements Serializable{
 	/**
 	 * Set the card name for the card type of the card, which is used to make
 	 * show the action markers.
-	 * @param drawableId identifies the card type played, e.g. "trickser", "krieger", "tac", "teufel", "engel", "narr", "1", "2", ..., "10", "12", "13"
+	 * @param cardName identifies the card type played, e.g. "trickser", "krieger", "tac", "teufel", "engel", "narr", "1", "2", ..., "10", "12", "13"
 	 */
 	public void setActionCard(String cardName){
 		this.actionCardName = cardName;
