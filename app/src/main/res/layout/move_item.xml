@@ -1,53 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:weightSum="100"
-    android:layout_height="match_parent"
+              android:orientation="horizontal" android:layout_width="match_parent"
+              android:weightSum="100"
+              android:layout_height="wrap_content"
     >
 
     <TextView
         android:layout_width="0dp" android:layout_weight="20"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/move_list_height"
         android:gravity="center"
         android:text="@string/emptyid"
         android:id="@+id/id_textview"
         android:textStyle="bold"
         android:textSize="30sp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         />
     <ImageView
         android:layout_weight="20"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/move_list_height"
         android:src="@drawable/backside"
         android:id="@+id/card_imageview"
         android:scaleType="fitCenter"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         />
     <ImageView
         android:layout_weight="30"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/move_list_height"
         android:id="@+id/ball2_imageview"
         android:scaleType="fitCenter"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         />
     <ImageView
         android:layout_weight="30"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/move_list_height"
         android:src="@drawable/ic_help"
         android:id="@+id/ball_imageview"
         android:scaleType="fitCenter"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         />
 
 </LinearLayout>
