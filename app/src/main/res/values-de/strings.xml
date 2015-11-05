@@ -59,7 +59,6 @@
     <string name="showdev_string">Suchen anderer Bluetooth Geräte</string>
     <string name="playerchoose">Spieler wählen</string>
     <!-- Preferences -->
-    <string name="settingsstring">Einstellungen</string>
     <string name="animatetitle">Karten animieren</string>
     <string name="animatesummary">Beim Spielen einer Karte wird diese vom Startfeld des aktiven Spielers zur Mitte bewegt.</string>
     <string name="playdirecttitle">Karte direkt ausführen</string>
@@ -80,7 +79,7 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-    <string name="connection_text">bitte verbinden...</string>
+    <string name="connection_text">bitte verbinden…</string>
     <string name="showplayer">Zeige Spielerfarbe</string>
     <string name="network_game_settings">Netzwerk Einstellungen</string>
     <string name="number_of_players">Anzahl Spieler</string>

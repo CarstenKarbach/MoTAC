@@ -75,7 +75,7 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-    <string name="connection_text">please connect...</string>
+    <string name="connection_text">please connect…</string>
     <string name="showplayer">show my player</string>
     <string name="network_game_settings">Network game settings</string>
     <string name="number_of_players">Number of players</string>
