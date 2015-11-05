@@ -42,7 +42,7 @@
             android:clickable="true"
             android:contentDescription="@string/showdev_string"
             android:scaleType="fitCenter"
-            android:src="@drawable/showdevices" />
+            android:src="@drawable/backside" />
 
         <Spinner
             android:id="@+id/playerid"

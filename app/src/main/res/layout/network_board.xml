@@ -140,7 +140,7 @@
             android:clickable="true"
             android:contentDescription="@string/discover"
             android:scaleType="fitCenter"
-            android:src="@drawable/discoverpic" />
+            android:src="@drawable/backside" />
         
         <de.karbach.tac.ui.EnDisImageButton
             android:id="@+id/showDevButton"
@@ -151,7 +151,7 @@
             android:clickable="true"
             android:contentDescription="@string/showdev_string"
             android:scaleType="fitCenter"
-            android:src="@drawable/showdevices" />
+            android:src="@drawable/backside" />
         
         <ImageButton
             android:id="@+id/showSettingsButton"
@@ -162,7 +162,7 @@
             android:clickable="true"
             android:contentDescription="@string/show_server_settings"
             android:scaleType="fitCenter"
-            android:src="@drawable/settings" />
+            android:src="@drawable/ic_more" />
         
         <ImageButton
             android:id="@+id/playNarrButton"
