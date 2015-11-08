@@ -21,6 +21,8 @@
 
 package de.karbach.tac.core;
 
+import android.util.SparseArray;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +54,7 @@ public class CardManager {
 	 * As soon as the cards are exchanged, the exchangeCards will be duplicated in the
 	 * player stacks.
 	 */
-	private Map<Integer, Card> exchangeCards;
+	private SparseArray<Card> exchangeCards;
 
 	/**
 	 * Number of players in the game
@@ -109,7 +111,7 @@ public class CardManager {
 
 		listeners = new ArrayList<CardActionListener>();
 
-		exchangeCards = new HashMap<Integer,Card>();
+		exchangeCards = new SparseArray<Card>();
 
 		fillStartCards();
 	}

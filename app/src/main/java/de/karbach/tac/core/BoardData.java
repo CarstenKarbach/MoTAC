@@ -35,6 +35,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.SparseArray;
 
 import de.karbach.tac.core.DataChangeEvent.ChangeType;
 
@@ -104,7 +105,7 @@ public class BoardData implements Serializable{
 	/**
 	 * Store for each player ID, which target fields are allowed for him
 	 */
-	private transient Map<Integer, List<Point>> playerIdToTargetFields;
+	private transient SparseArray<List<Point>> playerIdToTargetFields;
 	
 	/**
 	 * The ID of the currently active action card
@@ -470,7 +471,7 @@ public class BoardData implements Serializable{
 	 * Fill the attribute playerIdToTargetFields
 	 */
 	private void mapPlayerIdsToTargetFields(){
-		playerIdToTargetFields = new HashMap<Integer, List<Point>>();
+		playerIdToTargetFields = new SparseArray<List<Point>>();
 		for(int i=0; i<4; i++){
 			playerIdToTargetFields.put(i, new ArrayList<Point>());
 		}

@@ -35,6 +35,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -82,12 +83,12 @@ public class Board extends View implements DataChangeListener{
 	/**
 	 * Mapping of ball Ids to their colors
 	 */
-	private HashMap<Integer,Integer> ballIDToColor;
+	private SparseArray<Integer> ballIDToColor;
 
 	/**
 	 * Mapping of ball Ids to their bitmaps
 	 */
-	private HashMap<Integer,Bitmap> ballIDToBMP;
+	private SparseArray<Bitmap> ballIDToBMP;
 
 	/**
 	 * Maps to each integer number a card, which is painted in the center of the board
@@ -138,8 +139,8 @@ public class Board extends View implements DataChangeListener{
 	 * 
 	 */
 	protected void initBallColors(){
-		ballIDToColor = new HashMap<Integer, Integer>();
-		ballIDToBMP = new HashMap<Integer, Bitmap>();
+		ballIDToColor = new SparseArray<Integer>();
+		ballIDToBMP = new SparseArray<Bitmap>();
 
 		int players = 4;
 

@@ -34,6 +34,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.util.SparseArray;
 import android.view.View;
 import de.karbach.tac.R;
 
@@ -72,7 +73,7 @@ public class Card implements Serializable{
 	/**
 	 * Stores refrences to the bitmaps, in order to minimize the decodings
 	 */
-	private transient static Map<Integer, Bitmap> idToBitmap = new HashMap<Integer, Bitmap>();
+	private transient static SparseArray<Bitmap> idToBitmap = new SparseArray<Bitmap>();
 
 	/**
 	 * The distance attached to this card.
@@ -497,7 +498,7 @@ public class Card implements Serializable{
 	protected void checkDrawable(){
 		int checkDrawable = getDrawableForCardName(cardName);
 		if(checkDrawable != drawableId){
-			if(Card.idToBitmap.containsKey(drawableId)){
+			if(Card.idToBitmap.get(drawableId) != null){
 				Card.idToBitmap.remove(drawableId);
 			}
 			this.drawableId = checkDrawable;
@@ -517,7 +518,7 @@ public class Card implements Serializable{
 		if(bitmap != null){
 			return bitmap;
 		}
-		if(idToBitmap.containsKey(drawableId)){
+		if(idToBitmap.get(drawableId) != null){
 			bitmap = idToBitmap.get(drawableId);
 			return bitmap;
 		}
