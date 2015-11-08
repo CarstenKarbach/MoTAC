@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -46,7 +47,7 @@ public class MoveListFragment extends ListFragment{
 
         private ColorToBallImage colorToImage;
 
-        private SparseArray<Integer> ballIDToColor;
+        private SparseIntArray ballIDToColor;
         private SparseArray<Bitmap> ballIDToBMP;
 
         private List<Integer> colors;
@@ -67,7 +68,7 @@ public class MoveListFragment extends ListFragment{
          *
          */
         protected void initBallColors(){
-            ballIDToColor = new SparseArray<Integer>();
+            ballIDToColor = new SparseIntArray();
             ballIDToBMP = new SparseArray<Bitmap>();
 
             int players = 4;

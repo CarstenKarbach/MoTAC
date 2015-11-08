@@ -36,6 +36,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -83,7 +84,7 @@ public class Board extends View implements DataChangeListener{
 	/**
 	 * Mapping of ball Ids to their colors
 	 */
-	private SparseArray<Integer> ballIDToColor;
+	private SparseIntArray ballIDToColor;
 
 	/**
 	 * Mapping of ball Ids to their bitmaps
@@ -139,7 +140,7 @@ public class Board extends View implements DataChangeListener{
 	 * 
 	 */
 	protected void initBallColors(){
-		ballIDToColor = new SparseArray<Integer>();
+		ballIDToColor = new SparseIntArray();
 		ballIDToBMP = new SparseArray<Bitmap>();
 
 		int players = 4;
