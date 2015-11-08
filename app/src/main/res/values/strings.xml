@@ -463,4 +463,5 @@ POSSIBILITY OF SUCH DAMAGES.\n
 \n
                      END OF TERMS AND CONDITIONS\n    
 </string>
+    <string name="movenumber_description">Number for large or invalid moves.</string>
 </resources>

@@ -112,6 +112,14 @@ public class MoveListFragment extends ListFragment{
                 cardview.setImageResource(R.drawable.backside);
             }
 
+            TextView numberText = (TextView) convertView.findViewById(R.id.movenumber);
+            if(m.getDistance() > -1){
+                numberText.setText(String.valueOf(m.getDistance()));
+            }
+            else{
+                numberText.setText("");
+            }
+
             int[] ballIds = m.getBallIDs();
             Bitmap bm = null;
             if(ballIds == null){

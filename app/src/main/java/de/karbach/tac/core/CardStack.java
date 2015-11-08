@@ -25,6 +25,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.karbach.tac.R;
+
 /**
  * Stack of playing cards. Can be used for the cards of one
  * player or for the entire game stack.
@@ -112,6 +114,9 @@ public class CardStack implements Serializable{
 			}
 			Move m = new Move(c, involvedBalls);//Here the ID is the actual ball's ID
 			m.setId(moveId);
+            if(c.getDrawableId() == R.drawable.backside){
+                m.setDistance(c.getDistance());
+            }
 			result.add(m);
 		}
 

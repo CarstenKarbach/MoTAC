@@ -24,6 +24,27 @@ public class Move implements Serializable{
     protected int id;
 
     /**
+     *
+     * @return -1 if not set, otherwise the number for the distance of the move
+     */
+    public int getDistance() {
+        return distance;
+    }
+
+    /**
+     * Set the distance crossed by the move, if available
+     * @param distance the number of fields spanned by the move
+     */
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    /**
+     * Set this number, if an invalid number of fields is spanned by the move (e.g. more than 13)
+     */
+    protected int distance = -1;
+
+    /**
      * Used for ID generation
      */
     protected static int idcounter=0;

@@ -16,18 +16,38 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_weight="20"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/move_list_height"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp">
     <ImageView
-        android:layout_weight="20"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/move_list_height"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:src="@drawable/backside"
         android:id="@+id/card_imageview"
         android:scaleType="fitCenter"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:text=""
+        android:layout_marginTop="4dp"
+        android:textColor="@color/white"
+        android:id="@+id/movenumber"
+        android:contentDescription="@string/movenumber_description"
+        />
+
+    </RelativeLayout>
     <ImageView
         android:layout_weight="30"
         android:layout_width="0dp"
