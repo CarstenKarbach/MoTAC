@@ -175,7 +175,7 @@ public class BoardWithCards extends Board {
 		}
 		//Draw distance card on top again
 		if( first < playedCards.getSize() ){
-			drawDistanceInCenter(canvas);
+			drawDistanceInCenter(canvas, min);
 		}
 	}
 }

@@ -599,6 +599,7 @@ public class LocalBoard extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
        super.onOptionsItemSelected(item);
+
     	// Handle item selection
         switch (item.getItemId()) {
         	case R.id.menu_license:
@@ -645,6 +646,9 @@ public class LocalBoard extends Fragment {
             case R.id.help_zoomout:
             	showButtonHelp("zoomout");
             	return true;
+            case R.id.menu_make_image:
+                this.controller.makeAndShowBoardImage();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

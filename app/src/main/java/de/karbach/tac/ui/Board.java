@@ -251,19 +251,48 @@ public class Board extends View implements DataChangeListener{
 	 */
 	private boolean firstDraw = true;
 
-	protected void onDraw(Canvas canvas) {
-		//Do not draw if not initalized
+    /**
+     * Render the board into a bitmap and return it.
+     *
+     * @param width the width of the bitmap
+     * @param height the height of the bitmap
+     * @return the generated bitmap containing the board
+     */
+    public Bitmap generateBitmapFromView(int width, int height) {
+        Bitmap b = Bitmap.createBitmap( width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+
+        this.draw(c);
+        return b;
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        this.onScaledDraw(canvas, getWidth(), getHeight());
+    }
+
+    /**
+     * Draw the content of this view with any width or height
+     * @param canvas the canvas to draw on
+     * @param width width of the target view
+     * @param height height of the target view
+     */
+	protected void onScaledDraw(Canvas canvas, int width, int height) {
+		//Do not draw if not initialized
 		if(data==null){
 			return;
 		}
 		
 		//Set board to the center of available space
-		if(getWidth() > 0 && getHeight() > 0 && firstDraw){
+		if(width > 0 && height > 0 && firstDraw){
 			firstDraw = false;
-			viewdata.centerBoard(getWidth(), getHeight());
+			viewdata.centerBoard(width, height);
 		}
 
-		int min = getMinimumOfHeightAndWidth();
+		int min = width;
+        if(height < width){
+            min = height;
+        }
 
 		//Clear board
 		paint.setColor(Color.WHITE);
@@ -401,7 +430,7 @@ public class Board extends View implements DataChangeListener{
 			}
 		}
 
-		drawDistanceInCenter(canvas);
+		drawDistanceInCenter(canvas, min);
 
 	}
 	
@@ -410,9 +439,10 @@ public class Board extends View implements DataChangeListener{
 	 * distance of the current move.
 	 * 
 	 * @param canvas the canvas to draw on
+     * @param mindistance the minimum of width and height of the view to draw
 	 */
-	protected void drawDistanceInCenter(Canvas canvas){
-		int min = getMinimumOfHeightAndWidth();
+	protected void drawDistanceInCenter(Canvas canvas, int mindistance){
+		int min = mindistance;
 		
 		if(viewdata.getDistance() > -1 && viewdata.getDistance() < 40){
 			int cardWidth = (int)Math.round(min*cardWidthFactor);

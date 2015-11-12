@@ -21,15 +21,20 @@
 
 package de.karbach.tac.ui;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -625,6 +630,38 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
 		scale(1.0f/1.5f);
 		checkButtonStates();
 	}
+
+    /**
+     * Make image of the current board and show it in an image viewer activity
+     */
+    public void makeAndShowBoardImage(){
+        String filename = new File( fragment.getActivity().getFilesDir(), "boardimage.png").getAbsolutePath();
+
+        Bitmap bitmap = board.generateBitmapFromView(board.getWidth(), board.getHeight());
+
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(filename);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+            // PNG is a lossless format, the compression factor (100) is ignored
+            Intent imageviewintent = new Intent(fragment.getContext(), ImageViewActivity.class);
+            imageviewintent.putExtra(ImageViewActivity.IMAGEPATH, filename);
+            fragment.getActivity().startActivity(imageviewintent);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
 
 	/**
 	 * Switch from current tricksing mode to the opposite.
