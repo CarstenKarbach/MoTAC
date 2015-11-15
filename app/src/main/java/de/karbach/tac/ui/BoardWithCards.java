@@ -52,7 +52,20 @@ public class BoardWithCards extends Board {
 	/**
 	 * Maximum number of cards drawn here, all earlier cards are neglected
 	 */
-	protected int toDraw = 10; 
+	protected int toDraw = 10;
+
+    public boolean isAnimateCards() {
+        return animateCards;
+    }
+
+    public void setAnimateCards(boolean animateCards) {
+        this.animateCards = animateCards;
+    }
+
+    /**
+     * This attribute can be used to disable card animation inspite of the setting by the user
+     */
+    protected boolean animateCards = true;
 	
 	/**
 	 * @param context
@@ -93,7 +106,7 @@ public class BoardWithCards extends Board {
 				SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(BoardWithCards.this.getContext());
 				Boolean animateCards = sharedPref.getBoolean(Preferences.ANIMATION_KEY, true);
 				//Check preferences, whether cards need to be animated
-				if(animateCards && type == CardEventType.ADDED){ //Animate the card, if a card was just played
+				if(isAnimateCards() && animateCards && type == CardEventType.ADDED){ //Animate the card, if a card was just played
 					List<Card> cards = playedCards.getCards();
 					if(cards != null && cards.size() > 0){
 						Card newCard = cards.get(cards.size()-1);
@@ -141,41 +154,43 @@ public class BoardWithCards extends Board {
 		
 		this.invalidate();
 	}
-	
-	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
-		
-		//Check if data model is available
-		if(playedCards == null){
-			return;
-		}
-		if(data == null || viewdata == null){
-			return;
-		}
-		
-		//first is the index of the first card, which is to be drawn
-		int first = playedCards.getSize()-toDraw;
-		if(first < 0){
-			first = 0;
-		}
-		
-		int min = this.getWidth();
-		if(this.getHeight() < min){
-			min = this.getHeight();
-		}
-		
-		int degreeInc = 360/toDraw;//Rotation in degrees for each new card
-		
-		for(int i=first; i< playedCards.getSize(); i++){
-			Card current = playedCards.getCards().get(i);
-			int cardWidth = (int)Math.round(min*cardWidthFactor);
-			int modDraw = (playedCards.getTotalSize() - playedCards.getSize() + i)%toDraw; //difference between totally played cards and stored cards
-			int deg = modDraw*degreeInc;
-			current.draw(getContext(), viewdata, canvas, cardWidth, min, deg);
-		}
-		//Draw distance card on top again
-		if( first < playedCards.getSize() ){
-			drawDistanceInCenter(canvas, min);
-		}
-	}
+
+    @Override
+    protected void onScaledDraw(Canvas canvas, int width, int height) {
+        super.onScaledDraw(canvas, width, height);
+
+        //Check if data model is available
+        if(playedCards == null){
+            return;
+        }
+        if(data == null || viewdata == null){
+            return;
+        }
+
+        //first is the index of the first card, which is to be drawn
+        int first = playedCards.getSize()-toDraw;
+        if(first < 0){
+            first = 0;
+        }
+
+        int min = width;
+        if(height < min){
+            min = height;
+        }
+
+        int degreeInc = 360/toDraw;//Rotation in degrees for each new card
+
+        for(int i=first; i< playedCards.getSize(); i++){
+            Card current = playedCards.getCards().get(i);
+            int cardWidth = (int)Math.round(min*cardWidthFactor);
+            int modDraw = (playedCards.getTotalSize() - playedCards.getSize() + i)%toDraw; //difference between totally played cards and stored cards
+            int deg = modDraw*degreeInc;
+            current.draw(getContext(), viewdata, canvas, cardWidth, min, deg);
+        }
+        //Draw distance card on top again
+        if( first < playedCards.getSize() ){
+            drawDistanceInCenter(canvas, min);
+        }
+    }
+
 }

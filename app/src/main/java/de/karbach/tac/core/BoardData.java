@@ -20,6 +20,8 @@
  */
 package de.karbach.tac.core;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,6 +40,7 @@ import android.graphics.Color;
 import android.util.SparseArray;
 
 import de.karbach.tac.core.DataChangeEvent.ChangeType;
+import de.karbach.tac.ui.Board;
 
 /**
  * Stores logical data for one board
@@ -136,6 +139,54 @@ public class BoardData implements Serializable{
 
 		saveSnapshot();
 	}
+
+    /**
+     * Make a copy of any serializable object.
+     *
+     * @param toCopy the object, which is copied
+     *
+     * @return deep copy of toCopy
+     */
+    public static <T extends Serializable> T copy(T toCopy){
+        //Serialize this object to bytearray
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oOut = null;
+        byte[] byteOutput = null;
+        try {
+            oOut = new ObjectOutputStream(bos);
+            oOut.writeObject(toCopy);
+            oOut.close();
+            byteOutput = bos.toByteArray();
+
+        } catch (IOException e) {
+            return null;
+        }
+        //Unserialize it and return the unserialized object
+        ObjectInputStream oIn = null;
+        try {
+            oIn = new ObjectInputStream(new ByteArrayInputStream(byteOutput));
+            T loaded = (T) oIn.readObject();
+
+            return loaded;
+        } catch (IOException e1) {
+            return null;
+        } catch (ClassNotFoundException e2) {
+            return null;
+        }
+    }
+
+    /**
+     * Make a deep copy of this boarddata.
+     * Do not copy the transient members.
+     * @return deep copy of this boarddata or null, if error occurred
+     */
+    public BoardData copy(){
+        BoardData result = BoardData.copy(this);
+        if(result != null){
+            result.initAfterLoading();
+        }
+        return result;
+    }
 
     /**
      * Use the start point setting. Init the fields only with the balls given
@@ -731,6 +782,30 @@ public class BoardData implements Serializable{
 
 		return result;
 	}
+
+    /**
+     *
+     * @return the position in the history of stored moves, this is between 0 and maximumStepsStored-1
+     */
+    public int getHistoryPosition(){
+        return historyPosition;
+    }
+
+    /**
+     *
+     * @return the number of steps stored in the history, which can be traversed by going back and forth
+     */
+    public int getCurrentHistorySize(){
+        return history.size();
+    }
+
+    /**
+     *
+     * @return the number of steps, which can be stored in history
+     */
+    public int getMaximumHistorySize(){
+        return maximumStepsStored;
+    }
 
 	/**
 	 * Copies current state into history.

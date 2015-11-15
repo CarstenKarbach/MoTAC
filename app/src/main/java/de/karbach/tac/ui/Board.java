@@ -157,6 +157,15 @@ public class Board extends View implements DataChangeListener{
 		ballIDToBMP.put(greyBallId, greyBallBitmap);
 	}
 
+    /**
+     *
+     * @param id the id of the player
+     * @return the bitmap for a corresponding ball image
+     */
+    public Bitmap getBallbitmapForId(int id){
+        return ballIDToBMP.get(id);
+    }
+
 	/**
 	 * Set new data model for this board view
 	 * @param data new data, null is not allowed
@@ -262,12 +271,13 @@ public class Board extends View implements DataChangeListener{
         Bitmap b = Bitmap.createBitmap( width, height, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
 
-        this.draw(c);
+        this.onScaledDraw(c, width, height);
         return b;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         this.onScaledDraw(canvas, getWidth(), getHeight());
     }
 

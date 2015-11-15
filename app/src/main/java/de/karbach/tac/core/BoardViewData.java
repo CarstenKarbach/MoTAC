@@ -587,5 +587,18 @@ public class BoardViewData implements Serializable{
 		
 		return loaded;
 	}
+
+    /**
+     * Make a deep copy of this boardviewdata.
+     * Do not copy the transient members.
+     * @return deep copy of this boardviewdata or null, if error occurred
+     */
+    public BoardViewData copy(){
+        BoardViewData result = BoardData.copy(this);
+        if(result != null){
+            result.init();
+        }
+        return result;
+    }
 	
 }
