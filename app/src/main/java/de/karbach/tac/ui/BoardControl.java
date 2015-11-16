@@ -43,6 +43,9 @@ import android.support.v4.app.FragmentManager;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import de.karbach.tac.Preferences;
 import de.karbach.tac.R;
 import de.karbach.tac.core.BoardData;
@@ -637,13 +640,25 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
      * Make image of the current board and show it in an image viewer activity
      */
     public void makeAndShowBoardImage(){
-        ExportMovesTask exporter = new ExportMovesTask(data.copy(), viewdata.copy(), fragment.getActivity(), this);
+        View fragmentview = fragment.getView();
+        ProgressBar progressbar = (ProgressBar) fragmentview.findViewById(R.id.progressBar);
+        progressbar.setProgress(0);
+
+        ExportMovesTask exporter = new ExportMovesTask(data.copy(), viewdata.copy(), fragment.getActivity(), this, progressbar);
         exporter.execute();
+
+        if(progressbar != null){
+            progressbar.setVisibility(ProgressBar.VISIBLE);
+        }
     }
 
     @Override
     public void taskIsFinished(){
-
+        View fragmentview = fragment.getView();
+        ProgressBar progressbar = (ProgressBar) fragmentview.findViewById(R.id.progressBar);
+        if(progressbar != null){
+            progressbar.setVisibility(ProgressBar.INVISIBLE);
+        }
     }
 
 	/**
@@ -794,7 +809,7 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
 
 	/**
 	 * Shift map diffy pixels to the bottom
-	 * @param diffx pixels of translation in x-direction
+	 * @param diffy pixels of translation in x-direction
 	 */
 	public void shiftY(int diffy){
 		viewdata.setVy( viewdata.getVy()+diffy);

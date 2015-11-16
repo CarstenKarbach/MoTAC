@@ -133,8 +133,18 @@
         android:weightSum="80"
         android:paddingRight="2dp"
         android:paddingBottom="2dp" >
-	
-        <ImageButton 
+
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_weight="20"
+            android:visibility="invisible"
+            android:layout_gravity="bottom"
+            />
+
+        <ImageButton
             android:id="@+id/menuHelpButton"
 	        android:layout_width="0dip"
 	        android:layout_weight="10"

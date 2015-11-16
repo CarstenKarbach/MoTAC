@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.File;
@@ -33,6 +34,7 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
     private BoardViewData cviewdata;
     private Context context;
     private TaskFinishedCallback callback;
+    private ProgressBar progressbar;
 
     /**
      * Interface to a callback instance (e.g. BoardControl) to inform it as
@@ -46,11 +48,12 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
         public void taskIsFinished();
     }
 
-    public ExportMovesTask(BoardData cdata, BoardViewData cviewdata, Context context, TaskFinishedCallback callback){
+    public ExportMovesTask(BoardData cdata, BoardViewData cviewdata, Context context, TaskFinishedCallback callback, ProgressBar progressbar){
         this.cdata = cdata;
         this.cviewdata = cviewdata;
         this.context = context;
         this.callback = callback;
+        this.progressbar = progressbar;
     }
 
     /**
@@ -173,10 +176,10 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
 
         int steps = cdata.getCurrentHistorySize();
         int imagesPerRow = 10;
-        int moveBarHeight = 100;
-        int boardWidth = 500;
+        int moveBarHeight = 80;
+        int boardWidth = 300;
         int textPadding = boardWidth/100;
-        int boardHeight = 500;
+        int boardHeight = 300;
         int rows = steps/imagesPerRow;
         if(steps%imagesPerRow != 0){
             rows++;
@@ -225,6 +228,8 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
             }
         }
 
+        publishProgress(100);
+
         return result;
     }
 
@@ -256,10 +261,6 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
         try {
             out = new FileOutputStream(filename);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
-            // PNG is a lossless format, the compression factor (100) is ignored
-            /**Intent imageviewintent = new Intent(this.context, ImageViewActivity.class);
-            imageviewintent.putExtra(ImageViewActivity.IMAGEPATH, filename);
-            context.startActivity(imageviewintent);**/
 
             Intent intent = new Intent();
             intent.setAction(android.content.Intent.ACTION_VIEW);
@@ -281,5 +282,14 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
         if(callback != null) {
             callback.taskIsFinished();
         }
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        if(values == null || values.length == 0 || progressbar == null){
+            return;
+        }
+        int value = values[0];
+        progressbar.setProgress(value);
     }
 }
