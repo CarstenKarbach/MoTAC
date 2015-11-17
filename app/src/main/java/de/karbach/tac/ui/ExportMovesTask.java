@@ -17,6 +17,9 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.karbach.tac.R;
@@ -27,14 +30,17 @@ import de.karbach.tac.core.CardStack;
 
 /**
  * Run export of all moves in background task.
+ * Generates a list of filenames, where the exported bitmaps as files are stored.
  */
-public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
+public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
 
     private BoardData cdata;
     private BoardViewData cviewdata;
     private Context context;
     private TaskFinishedCallback callback;
     private ProgressBar progressbar;
+
+    private Bitmap backsideBMP;
 
     /**
      * Interface to a callback instance (e.g. BoardControl) to inform it as
@@ -54,6 +60,8 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
         this.context = context;
         this.callback = callback;
         this.progressbar = progressbar;
+
+        backsideBMP = BitmapFactory.decodeResource(context.getResources(), de.karbach.tac.R.drawable.backside);
     }
 
     /**
@@ -96,19 +104,20 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
      * @param textPadding padding for texts and ball images
      * @param paint paint object for draw calls
      * @param pos id of move, 1 stands for first card played
+     * @param movePos absolute position of moves in the entire export
      * @param moveTextWidth width of text requested for the move id
      * @param cardWidth width of card rendering
      * @param cardHeight height of card
      * @param drawboard the board needed to get ball images
      * @param canvas the canvas to draw on
      */
-    protected void drawMoveBar(int xstart, int ystart, int moveBarHeight, int textPadding, Paint paint, int pos, int moveTextWidth, int cardWidth, int cardHeight, BoardWithCards drawboard, Canvas canvas){
+    protected void drawMoveBar(int xstart, int ystart, int moveBarHeight, int textPadding, Paint paint, int pos, int movePos, int moveTextWidth, int cardWidth, int cardHeight, BoardWithCards drawboard, Canvas canvas){
         int moveystart = ystart - moveBarHeight + textPadding;
         //Draw move information
-        if(pos > 0) {
+        if(movePos > 0) {
             setTextSizeForWidth(paint, moveTextWidth, "999");
             CardStack stack = cdata.getPlayedCards();
-            int moveId = stack.getTotalSize()-stack.getSize()+pos;
+            int moveId = stack.getTotalSize()-stack.getSize()+movePos;
             //Draw a bar holding all information about the current move
             canvas.drawText(String.valueOf(moveId), xstart + textPadding, moveystart+moveBarHeight/2, paint);
 
@@ -162,20 +171,10 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
         }//End of draw move information
     }
 
-    @Override
-    protected Bitmap doInBackground(Void... params) {
-        BoardWithCards drawboard = new BoardWithCards(context);
+    protected String generateBitmap(int beginStep, int lastStep, BoardWithCards drawboard, String filename){
+        int steps = lastStep-beginStep+1;
 
-        while(cdata.canGoBack()){
-            cdata.goBack();
-        }
-
-        drawboard.setData(cdata, cviewdata);
-        drawboard.setCardStack(cdata.getPlayedCards());
-        drawboard.setAnimateCards(false);
-
-        int steps = cdata.getCurrentHistorySize();
-        int imagesPerRow = 10;
+        int imagesPerRow = 4;
         int moveBarHeight = 80;
         int boardWidth = 300;
         int textPadding = boardWidth/100;
@@ -192,13 +191,13 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
         int moveTextWidth = boardWidth/5;
 
         int cardHeight = moveBarHeight-2*textPadding;
-        Bitmap backsideBMP = BitmapFactory.decodeResource(context.getResources(), de.karbach.tac.R.drawable.backside);
         int cardWidth = (int)Math.round( (double)backsideBMP.getWidth() / (double)backsideBMP.getHeight() * cardHeight );
 
-        int pos = 0;
+        int pos = 0;//Relative position in this bitmap
+        int movePos = beginStep;//Absolute position in the entire export
         boolean moreToPaint = true;
-        publishProgress(0);
-        while(moreToPaint){
+
+        while(moreToPaint && movePos<=lastStep){
 
             int xpos = pos%imagesPerRow;
             int ypos = pos/imagesPerRow;
@@ -210,7 +209,7 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
 
             canvas.drawBitmap(bitmap, xstart, ystart, paint);
             bitmap.recycle();
-            drawMoveBar(xstart, ystart, moveBarHeight, textPadding, paint, pos, moveTextWidth,
+            drawMoveBar(xstart, ystart, moveBarHeight, textPadding, paint, pos, movePos, moveTextWidth,
                     cardWidth, cardHeight, drawboard, canvas);
 
             if(cdata.canGoForward()) {
@@ -221,11 +220,57 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
                 moreToPaint = false;
             }
             pos++;
+            movePos++;
 
-            publishProgress(pos * 100 / steps);
             if(isCancelled()){
                 break;
             }
+        }
+
+        this.saveBitmapToFile(result, filename);
+        result.recycle();
+
+        return filename;
+    }
+
+    @Override
+    protected List<String> doInBackground(Void... params) {
+        BoardWithCards drawboard = new BoardWithCards(context);
+
+        publishProgress(0);
+
+        while(cdata.canGoBack()){
+            cdata.goBack();
+        }
+
+        drawboard.setData(cdata, cviewdata);
+        drawboard.setCardStack(cdata.getPlayedCards());
+        drawboard.setAnimateCards(false);
+
+        int steps = cdata.getCurrentHistorySize();
+
+        int exportID = getNextExportID(context);
+        int movesPerPart = 16;
+
+        int parts = steps/movesPerPart;
+        if(steps%movesPerPart != 0){
+            parts++;
+        }
+
+        List<String> result = new ArrayList<String>();
+
+        for(int i=0; i<parts; i++){
+            int beginStep = i*movesPerPart;
+            int lastStep = (i+1)*movesPerPart-1;
+            if(lastStep >= steps){
+                lastStep = steps-1;
+            }
+            String filename = getFilenameFor(exportID, i+1);
+            generateBitmap(beginStep, lastStep, drawboard, filename);
+
+            result.add(filename);
+
+            publishProgress( (i+1)*100 / parts);
         }
 
         publishProgress(100);
@@ -233,8 +278,100 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
         return result;
     }
 
-    @Override
-    protected void onPostExecute(Bitmap bitmap){
+    /**
+     * Prefix for image files, which are generated here
+     */
+    private static final String filePrefix = "MoTAC_export";
+
+    /**
+     *
+     * @param context context to access files/directories
+     * @return the directory, where pictures are stored
+     */
+    public static File getPictureDirectory(Context context){
+        return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+    }
+
+    /**
+     *
+     * @return list of exported images, which were already stored by this task before
+     */
+    public static List<String> getStoredImages(Context context){
+        File directory = getPictureDirectory(context);
+        if(!directory.exists() || !directory.isDirectory() ){
+            return null;
+        }
+
+        List<String> result = new ArrayList<String>();
+        File[] files = directory.listFiles();
+        for(File f: files){
+            if(! f.isFile()){
+                continue;
+            }
+            String name = f.getName();
+            if(name.startsWith(filePrefix)){
+                result.add(name);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     *
+     * @return formatted date string for today's date
+     */
+    public static String getTodayFormatted(){
+        return new SimpleDateFormat("yyyy_MM_dd").format(new Date());
+    }
+
+    /**
+     * Generate the bitmap filename for an export id and the part position of the bitmap.
+     * One export can generate multiple parts.
+     *
+     * @param id the id of the export on this day
+     * @param part the part of the export
+     * @return the filename of the bitmap to use
+     */
+    public static String getFilenameFor(int id, int part){
+        String date = getTodayFormatted();
+        return filePrefix+"_"+date+"_"+id+"_"+part+".png";
+    }
+
+    /**
+     * Get the next export ID to use
+     * @param context for accessing files
+     * @return the id for the next export to use
+     */
+    public static int getNextExportID(Context context){
+        List<String> images = getStoredImages(context);
+        String prefixToday = filePrefix+"_"+getTodayFormatted();
+        int maxid = 0;
+        for(String filename: images){
+            if(filename.startsWith(prefixToday)){
+                String[] parts = filename.split("_");
+                if(parts.length < 6){
+                    continue;
+                }
+                String id = parts[5];
+                int idvalue = Integer.valueOf(id);
+                if(idvalue > maxid){
+                    maxid = idvalue;
+                }
+            }
+        }
+
+        return maxid+1;
+    }
+
+    /**
+     * Store a bitmap to file.
+     *
+     * @param bitmap the bitmap to store
+     * @param filename the filename (only filename no folder) to store the bitmap at
+     * @return true on success, false, if an error occurred
+     */
+    protected boolean saveBitmapToFile(Bitmap bitmap, String filename){
         boolean mExternalStorageWriteable = false;
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
@@ -249,11 +386,10 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
         }
 
         if(! mExternalStorageWriteable){
-            Toast.makeText(context, "Unable to write exported bitmap to external storage.", Toast.LENGTH_LONG).show();
-            return;
+            Toast.makeText(context, "Sorry, could not store the image.", Toast.LENGTH_LONG).show();
+            return false;
         }
 
-        String filename="MoTAC_export.png";
         File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), filename);
         filename = file.getAbsolutePath();
 
@@ -261,14 +397,10 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
         try {
             out = new FileOutputStream(filename);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
-
-            Intent intent = new Intent();
-            intent.setAction(android.content.Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(file), "image/png");
-            context.startActivity(intent);
-
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(context, "Sorry, could not store the image.", Toast.LENGTH_LONG).show();
+            return false;
         } finally {
             try {
                 if (out != null) {
@@ -277,6 +409,24 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,Bitmap> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        return true;
+    }
+
+    @Override
+    protected void onPostExecute(List<String> files){
+
+        for(String filename: files) {
+            File file = new File(getPictureDirectory(context), filename);
+
+            if (file != null) {
+                Intent intent = new Intent();
+                intent.setAction(android.content.Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(file), "image/png");
+                context.startActivity(intent);
+            }
+
         }
 
         if(callback != null) {
