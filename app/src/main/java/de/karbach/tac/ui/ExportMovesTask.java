@@ -259,16 +259,20 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
 
         List<String> result = new ArrayList<String>();
 
+        File picDir = getPictureDirectory(context);
+
         for(int i=0; i<parts; i++){
             int beginStep = i*movesPerPart;
             int lastStep = (i+1)*movesPerPart-1;
             if(lastStep >= steps){
                 lastStep = steps-1;
             }
-            String filename = getFilenameFor(exportID, i+1);
+            String filename = getFilenameFor(getTodayFormatted(), exportID, i+1);
             generateBitmap(beginStep, lastStep, drawboard, filename);
 
-            result.add(filename);
+            File file = new File(picDir, filename);
+
+            result.add(file.getAbsolutePath());
 
             publishProgress( (i+1)*100 / parts);
         }
@@ -333,9 +337,110 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
      * @param part the part of the export
      * @return the filename of the bitmap to use
      */
-    public static String getFilenameFor(int id, int part){
-        String date = getTodayFormatted();
+    public static String getFilenameFor(String date, int id, int part){
         return filePrefix+"_"+date+"_"+id+"_"+part+".png";
+    }
+
+    /**
+     * Get the number of parts for an export, of which the given file is part of.
+     *
+     * @param filename the full absolute path to the image
+     * @param context context to traverse picture directory
+     * @return the number of parts found for that game id at that date
+     */
+    public static String getPartcountForFilename(String filename, Context context){
+        String date = getDateFromFilename(filename, false);
+        String gameid = getGameIDFromFilename(filename);
+
+        File directory = getPictureDirectory(context);
+        if(!directory.exists() || !directory.isDirectory() ){
+            return "";
+        }
+
+        File[] files = directory.listFiles();
+        int count = 0;
+
+        String prefix = filePrefix+"_"+date+"_"+gameid+"_";
+        for(File f: files){
+            if(f.getName().startsWith(prefix)){
+                count++;
+            }
+        }
+
+        return String.valueOf(count);
+    }
+
+    /**
+     * Get the date part from an image filename
+     * @param filename the full absolute path to the image
+     * @param germanFormat use the German format instead of file format
+     * @return the data part nicely formatted
+     */
+    public static String getDateFromFilename(String filename, boolean germanFormat){
+        File f = new File(filename);
+        String name = f.getName();
+
+        String[] parts = name.split("_");
+
+        if(parts.length >= 5 ){
+            String year = parts[2];
+            String month = parts[3];
+            String day = parts[4];
+
+            if(germanFormat) {
+                return day + "." + month + "." + year;
+            }
+            else{
+                return year+"_"+month+"_"+day;
+            }
+        }
+        else{
+            return "";
+        }
+    }
+
+    /**
+     * Get the game id from an image filename
+     * @param filename the full absolute path to the image
+     * @return the game id
+     */
+    public static String getGameIDFromFilename(String filename){
+        File f = new File(filename);
+        String name = f.getName();
+
+        String[] parts = name.split("_");
+
+        if(parts.length >= 6 ){
+           return parts[5];
+        }
+        else{
+            return "";
+        }
+    }
+
+    /**
+     * Get the part of the export from an image filename
+     * @param filename the full absolute path to the image
+     * @return the part of export
+     */
+    public static String getPartIDFromFilename(String filename){
+        File f = new File(filename);
+        String name = f.getName();
+
+        String[] parts = name.split("_");
+
+        if(parts.length >= 7 ){
+            String[] partAndEnding = parts[6].split("\\.");
+            if(partAndEnding.length >= 1) {
+                return partAndEnding[0];
+            }
+            else{
+                return "";
+            }
+        }
+        else{
+            return "";
+        }
     }
 
     /**
@@ -417,6 +522,13 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
     @Override
     protected void onPostExecute(List<String> files){
 
+        ArrayList<String> arg = new ArrayList<String>(files);
+
+        Intent intent = new Intent(context, ExportedImagesActivity.class);
+        intent.putStringArrayListExtra(ExportedImagesActivity.FILE_LIST, arg);
+        context.startActivity(intent);
+
+        /**
         for(String filename: files) {
             File file = new File(getPictureDirectory(context), filename);
 
@@ -427,7 +539,7 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
                 context.startActivity(intent);
             }
 
-        }
+        }**/
 
         if(callback != null) {
             callback.taskIsFinished();

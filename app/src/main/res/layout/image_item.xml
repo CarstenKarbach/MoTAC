@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal" android:layout_width="match_parent"
+              android:weightSum="100"
+              android:layout_height="wrap_content"
+    >
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="@dimen/move_list_height"
+        android:src="@drawable/icon"
+        android:id="@+id/image_preview"
+        android:scaleType="fitCenter"
+        android:layout_weight="20"
+        android:padding="4dp"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp" android:layout_weight="40"
+        android:layout_height="@dimen/move_list_height"
+        android:orientation="vertical"
+        android:weightSum="100"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:gravity="left"
+            android:text="Date"
+            android:textSize="10sp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_weight="70"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@string/emptyid"
+            android:id="@+id/text_date"
+            android:textSize="30sp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp" android:layout_weight="30"
+        android:layout_height="@dimen/move_list_height"
+        android:orientation="vertical"
+        android:weightSum="100"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:gravity="left"
+            android:text="Game"
+            android:textSize="10sp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent" android:layout_weight="70"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@string/emptyid"
+            android:id="@+id/text_id"
+            android:textStyle="bold"
+            android:textSize="40sp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp" android:layout_weight="10"
+        android:layout_height="@dimen/move_list_height"
+        android:orientation="vertical"
+        android:weightSum="100"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:gravity="left"
+            android:text="Part"
+            android:textSize="10sp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            />
+
+    <TextView
+        android:layout_width="match_parent" android:layout_weight="70"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/emptyid"
+        android:id="@+id/text_part"
+        android:textSize="20sp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        />
+    </LinearLayout>
+
+</LinearLayout>
