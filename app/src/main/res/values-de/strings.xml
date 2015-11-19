@@ -150,4 +150,10 @@ Teile sind urheberrechtlich und als Geschmacksmuster geschützt.
 </string>
     <string name="emptyid">-</string>
     <string name="make_image">Exportieren</string>
+    <string name="show_exports">Letzte Spiele</string>
+    <string name="label_date">Datum</string>
+    <string name="label_game">Spiel</string>
+    <string name="label_part">Abschnitt</string>
+    <string name="exported_games_title">Letzte Spiele</string>
+    <string name="delete">Löschen</string>
 </resources>

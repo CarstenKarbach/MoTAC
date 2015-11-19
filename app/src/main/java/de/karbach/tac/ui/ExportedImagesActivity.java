@@ -34,6 +34,6 @@ public class ExportedImagesActivity extends SingleFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle("Exported games");
+        setTitle(getString(R.string.exported_games_title));
     }
 }

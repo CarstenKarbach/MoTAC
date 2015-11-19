@@ -285,7 +285,7 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
     /**
      * Prefix for image files, which are generated here
      */
-    private static final String filePrefix = "MoTAC_export";
+    public static final String filePrefix = "MoTAC_export";
 
     /**
      *
@@ -298,9 +298,11 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
 
     /**
      *
+     * @param absolutePath if true, absolute file paths are returned, otherwise only the file names
+     *
      * @return list of exported images, which were already stored by this task before
      */
-    public static List<String> getStoredImages(Context context){
+    public static List<String> getStoredImages(Context context, boolean absolutePath){
         File directory = getPictureDirectory(context);
         if(!directory.exists() || !directory.isDirectory() ){
             return null;
@@ -314,7 +316,12 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
             }
             String name = f.getName();
             if(name.startsWith(filePrefix)){
-                result.add(name);
+                if(! absolutePath){
+                    result.add(name);
+                }
+                else{
+                    result.add(f.getAbsolutePath());
+                }
             }
         }
 
@@ -449,7 +456,7 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
      * @return the id for the next export to use
      */
     public static int getNextExportID(Context context){
-        List<String> images = getStoredImages(context);
+        List<String> images = getStoredImages(context, false);
         String prefixToday = filePrefix+"_"+getTodayFormatted();
         int maxid = 0;
         for(String filename: images){

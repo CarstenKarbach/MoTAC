@@ -54,6 +54,29 @@ public class ExportedImagesFragment extends ListFragment{
 
         }
 
+        /**
+         * Get a thumbnail for a picture.
+         * @param imagepath path to the image, for which thumbnail is required
+         * @param thumbnailSize size in pixels of the target thumbnail
+         * @return the generated thumbnail image
+         */
+        Bitmap getPreview(String imagepath, int thumbnailSize) {
+            File image = new File(imagepath);
+
+            BitmapFactory.Options bounds = new BitmapFactory.Options();
+            bounds.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(image.getPath(), bounds);
+            if ((bounds.outWidth == -1) || (bounds.outHeight == -1))
+                return null;
+
+            int originalSize = (bounds.outHeight > bounds.outWidth) ? bounds.outHeight
+                    : bounds.outWidth;
+
+            BitmapFactory.Options opts = new BitmapFactory.Options();
+            opts.inSampleSize = originalSize / thumbnailSize;
+            return BitmapFactory.decodeFile(image.getPath(), opts);
+        }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
@@ -64,7 +87,7 @@ public class ExportedImagesFragment extends ListFragment{
 
             ImageView thumbnailView = (ImageView) convertView.findViewById(R.id.image_preview);
 
-            Bitmap resized = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(filepath), 100, 100);
+            Bitmap resized = getPreview(filepath, 100);
             thumbnailView.setImageBitmap(resized);
 
             TextView dateText = (TextView) convertView.findViewById(R.id.text_date);

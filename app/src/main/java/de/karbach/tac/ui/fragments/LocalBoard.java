@@ -649,6 +649,9 @@ public class LocalBoard extends Fragment {
             case R.id.menu_make_image:
                 this.controller.makeAndShowBoardImage();
                 return true;
+            case R.id.menu_show_exports:
+                this.controller.showExports();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

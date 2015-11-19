@@ -25,6 +25,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.app.Activity;
@@ -652,9 +654,54 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
         }
     }
 
+    /**
+     * Show a list of all exported games
+     */
+    public void showExports(){
+        List<String> exports = ExportMovesTask.getStoredImages(fragment.getActivity(), true);
+        //Sort first by date, then by game id, then reverse ordered by part id
+        Collections.sort(exports, new Comparator<String>() {
+            @Override
+            public int compare(String lhs, String rhs) {
+                String ldate = ExportMovesTask.getDateFromFilename(lhs, false);
+                String rdate = ExportMovesTask.getDateFromFilename(rhs, false);
+
+                int cmp = rdate.compareTo(ldate);
+                if (cmp != 0) {
+                    return cmp;
+                }
+
+                int lgame = Integer.parseInt(ExportMovesTask.getGameIDFromFilename(lhs));
+                int rgame = Integer.parseInt(ExportMovesTask.getGameIDFromFilename(rhs));
+
+                if (lgame < rgame) {
+                    return 1;
+                }
+                if (lgame > rgame) {
+                    return -1;
+                }
+
+                Integer lpart = Integer.parseInt(ExportMovesTask.getPartIDFromFilename(lhs));
+                Integer rpart = Integer.parseInt(ExportMovesTask.getPartIDFromFilename(rhs));
+                //Show smaller part number first
+                return lpart.compareTo(rpart);
+            }
+        });
+
+        Intent intent = new Intent(fragment.getActivity(), ExportedImagesActivity.class);
+        intent.putStringArrayListExtra(ExportedImagesActivity.FILE_LIST, new ArrayList<String>(exports));
+        fragment.getActivity().startActivity(intent);
+    }
+
     @Override
     public void taskIsFinished(){
+        if(fragment == null){
+            return;
+        }
         View fragmentview = fragment.getView();
+        if(fragmentview == null){
+            return;
+        }
         ProgressBar progressbar = (ProgressBar) fragmentview.findViewById(R.id.progressBar);
         if(progressbar != null){
             progressbar.setVisibility(ProgressBar.INVISIBLE);

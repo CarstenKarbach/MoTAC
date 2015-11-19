@@ -466,4 +466,9 @@ POSSIBILITY OF SUCH DAMAGES.\n
     <string name="movenumber_description">Number for large or invalid moves.</string>
     <string name="make_image">Export</string>
     <string name="delete">Delete</string>
+    <string name="show_exports">Show exports</string>
+    <string name="label_date">Date</string>
+    <string name="label_game">Game</string>
+    <string name="label_part">Part</string>
+    <string name="exported_games_title">Exported games</string>
 </resources>
