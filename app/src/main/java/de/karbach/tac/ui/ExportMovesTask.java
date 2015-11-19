@@ -528,19 +528,6 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
         intent.putStringArrayListExtra(ExportedImagesActivity.FILE_LIST, arg);
         context.startActivity(intent);
 
-        /**
-        for(String filename: files) {
-            File file = new File(getPictureDirectory(context), filename);
-
-            if (file != null) {
-                Intent intent = new Intent();
-                intent.setAction(android.content.Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(file), "image/png");
-                context.startActivity(intent);
-            }
-
-        }**/
-
         if(callback != null) {
             callback.taskIsFinished();
         }

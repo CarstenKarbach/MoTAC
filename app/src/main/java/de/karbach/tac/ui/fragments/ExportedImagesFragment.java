@@ -3,13 +3,18 @@ package de.karbach.tac.ui.fragments;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -59,6 +64,9 @@ public class ExportedImagesFragment extends ListFragment{
 
             ImageView thumbnailView = (ImageView) convertView.findViewById(R.id.image_preview);
 
+            Bitmap resized = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(filepath), 100, 100);
+            thumbnailView.setImageBitmap(resized);
+
             TextView dateText = (TextView) convertView.findViewById(R.id.text_date);
             TextView partText = (TextView) convertView.findViewById(R.id.text_part);
             TextView gameIDText = (TextView) convertView.findViewById(R.id.text_id);
@@ -93,6 +101,16 @@ public class ExportedImagesFragment extends ListFragment{
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View result = super.onCreateView(inflater, container, savedInstanceState);
+
+        ListView listview = (ListView) result.findViewById(android.R.id.list);
+        registerForContextMenu(listview);
+
+        return result;
+    }
+
+    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
@@ -102,5 +120,34 @@ public class ExportedImagesFragment extends ListFragment{
         intent.setAction(android.content.Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(f), "image/png");
         getActivity().startActivity(intent);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        getActivity().getMenuInflater().inflate(R.menu.menu_exportedimages, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        int position = info.position;
+
+        if(item.getItemId() == R.id.menu_exportedimages_delete){
+            String path = files.get(position);
+            if(path == null){
+                return true;
+            }
+            File file = new File(path);
+            file.delete();
+
+            files.remove(position);
+
+            ExportImageAdapter adapter = (ExportImageAdapter)getListAdapter();
+            adapter.notifyDataSetChanged();
+        }
+
+        return super.onContextItemSelected(item);
     }
 }

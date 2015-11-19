@@ -148,4 +148,6 @@ ein Freizeitprojekt. Zeit für zukünftige Entwicklungen ist entsprechend begren
 \nTAC ist eine eingetragene Marke des TAC Verlag / Karl Wenning, sämtliche
 Teile sind urheberrechtlich und als Geschmacksmuster geschützt.
 </string>
+    <string name="emptyid">-</string>
+    <string name="make_image">Exportieren</string>
 </resources>
