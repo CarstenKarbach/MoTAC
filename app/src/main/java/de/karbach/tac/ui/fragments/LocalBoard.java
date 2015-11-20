@@ -145,13 +145,21 @@ public class LocalBoard extends Fragment {
 		
 		return rootView;
 	}
-	
-	/* (non-Javadoc)
-	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
-	 */
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(controller != null){
+            controller.makeAndShowBoardImage(true);
+        }
+    }
+
+    /* (non-Javadoc)
+         * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
+         */
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState){
-		super.onActivityCreated(savedInstanceState);
+	public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 		
 		//Check here again as now the view can actually be accessed
 		this.controller.checkButtonStates();
@@ -647,7 +655,7 @@ public class LocalBoard extends Fragment {
             	showButtonHelp("zoomout");
             	return true;
             case R.id.menu_make_image:
-                this.controller.makeAndShowBoardImage();
+                this.controller.makeAndShowBoardImage(false);
                 return true;
             case R.id.menu_show_exports:
                 this.controller.showExports();

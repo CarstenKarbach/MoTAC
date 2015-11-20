@@ -640,15 +640,31 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
 
     /**
      * Make image of the current board and show it in an image viewer activity
+     *
+     * @param onlyUpdateTask if true, the existing task is only updated, otherwise a new task can also be started
      */
-    public void makeAndShowBoardImage(){
+    public void makeAndShowBoardImage(boolean onlyUpdateTask){
         View fragmentview = fragment.getView();
         ProgressBar progressbar = (ProgressBar) fragmentview.findViewById(R.id.progressBar);
-        progressbar.setProgress(0);
+        if(progressbar != null) {
+            progressbar.setProgress(0);
+        }
 
-        ExportMovesTask exporter = new ExportMovesTask(data.copy(), viewdata.copy(), fragment.getActivity(), this, progressbar);
+        ExportMovesTask exporter = ExportMovesTask.getInstance();//Might return null
+        if(exporter != null){//Needed tio check, whether an instance existed before
+            exporter = ExportMovesTask.createInstance(data.copy(), viewdata.copy(), fragment.getActivity(), this, progressbar);
+            if(progressbar != null){
+                progressbar.setVisibility(ProgressBar.VISIBLE);
+            }
+            //No need to call execution here
+            return;
+        }
+        if(onlyUpdateTask){
+            return;
+        }
+
+        exporter = ExportMovesTask.createInstance(data.copy(), viewdata.copy(), fragment.getActivity(), this, progressbar);
         exporter.execute();
-
         if(progressbar != null){
             progressbar.setVisibility(ProgressBar.VISIBLE);
         }

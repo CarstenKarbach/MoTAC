@@ -42,6 +42,40 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
 
     private Bitmap backsideBMP;
 
+    private static int lastProgress = 0;
+    private static ExportMovesTask instance;
+
+    /**
+     *
+     * @return the singleton instance of this task or null if none was created yet
+     */
+    public static ExportMovesTask getInstance(){
+        return instance;
+    }
+
+    /**
+     * Either update the existing task or create a new one.
+     * @param cdata copied board data used during drawing
+     * @param cviewdata copied view data used during drawing
+     * @param context the context to access files with and start intents
+     * @param callback the calling instance, which is informed about the finish of the task
+     * @param progressbar the view to update with progress information
+     * @return instance of the task
+     */
+    public static ExportMovesTask createInstance(BoardData cdata, BoardViewData cviewdata, Context context, TaskFinishedCallback callback, ProgressBar progressbar){
+        ExportMovesTask result = getInstance();
+        if(result != null){
+            result.progressbar = progressbar;
+            if(result.progressbar != null) {
+                result.progressbar.setProgress(lastProgress);
+            }
+            result.callback = callback;
+            return result;
+        }
+        instance = new ExportMovesTask(cdata,cviewdata,context,callback,progressbar);
+        return instance;
+    }
+
     /**
      * Interface to a callback instance (e.g. BoardControl) to inform it as
      * soon as the task is completed.
@@ -54,7 +88,15 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
         public void taskIsFinished();
     }
 
-    public ExportMovesTask(BoardData cdata, BoardViewData cviewdata, Context context, TaskFinishedCallback callback, ProgressBar progressbar){
+    /**
+     * Init the task.
+     * @param cdata copied board data used during drawing
+     * @param cviewdata copied view data used during drawing
+     * @param context the context to access files with and start intents
+     * @param callback the calling instance, which is informed about the finish of the task
+     * @param progressbar the view to update with progress information
+     */
+    private ExportMovesTask(BoardData cdata, BoardViewData cviewdata, Context context, TaskFinishedCallback callback, ProgressBar progressbar){
         this.cdata = cdata;
         this.cviewdata = cviewdata;
         this.context = context;
@@ -528,6 +570,7 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
 
     @Override
     protected void onPostExecute(List<String> files){
+        instance = null;
 
         ArrayList<String> arg = new ArrayList<String>(files);
 
@@ -546,6 +589,7 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
             return;
         }
         int value = values[0];
+        lastProgress = value;
         progressbar.setProgress(value);
     }
 }

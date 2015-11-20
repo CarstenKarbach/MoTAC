@@ -152,11 +152,20 @@
             <ProgressBar
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="16dp"
                 android:id="@+id/progressBar"
-                android:layout_weight="20"
+                android:layout_weight="30"
                 android:visibility="invisible"
-                android:layout_gravity="bottom"
+                android:layout_gravity="left|bottom"
+                android:progress="0"
+                android:padding="4dp"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:text=""
                 />
 
 	    <ImageButton 
