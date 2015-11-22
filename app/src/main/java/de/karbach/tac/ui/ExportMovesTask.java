@@ -253,8 +253,11 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
         if(steps%imagesPerRow != 0){
             rows++;
         }
-
-        Bitmap result = Bitmap.createBitmap( imagesPerRow*boardWidth, rows*(boardHeight+moveBarHeight), Bitmap.Config.ARGB_8888);
+        int resultBitmapWidth = imagesPerRow*boardWidth;
+        if(steps < imagesPerRow){
+            resultBitmapWidth = steps*boardWidth;
+        }
+        Bitmap result = Bitmap.createBitmap( resultBitmapWidth, rows*(boardHeight+moveBarHeight), Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(result);
         Paint paint = new Paint();
