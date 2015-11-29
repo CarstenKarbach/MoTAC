@@ -1,5 +1,7 @@
 package de.karbach.tac.ui.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,8 @@ import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,6 +124,7 @@ public class ExportedImagesFragment extends ListFragment{
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
 
+        setHasOptionsMenu(true);
         setListAdapter(new ExportImageAdapter(files) );
     }
 
@@ -131,6 +136,24 @@ public class ExportedImagesFragment extends ListFragment{
         registerForContextMenu(listview);
 
         return result;
+    }
+
+    /**
+     * Delete an image at a certain position in the list of image files.
+     * @param position the position for the file to delete
+     */
+    protected void deleteImage(int position){
+       if(position < 0 || position >= files.size()){
+           return;
+       }
+
+        File file = new File(files.get(position));
+        file.delete();
+
+        files.remove(position);
+
+        ExportImageAdapter adapter = (ExportImageAdapter)getListAdapter();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -153,22 +176,52 @@ public class ExportedImagesFragment extends ListFragment{
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.actionmenu_exportedimages, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_exportedimages_delete_all){
+
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            while(files.size() > 0){
+                                int sizeBefore = files.size();
+                                deleteImage(0);
+                                int sizeAfter = files.size();
+                                if(sizeBefore == sizeAfter){
+                                    break;
+                                }
+                            }
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //No button clicked
+                            break;
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(getString(R.string.reallydelete)).setPositiveButton(getString(R.string.yes), dialogClickListener)
+                    .setNegativeButton(getString(R.string.no), dialogClickListener).show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         int position = info.position;
 
         if(item.getItemId() == R.id.menu_exportedimages_delete){
-            String path = files.get(position);
-            if(path == null){
-                return true;
-            }
-            File file = new File(path);
-            file.delete();
-
-            files.remove(position);
-
-            ExportImageAdapter adapter = (ExportImageAdapter)getListAdapter();
-            adapter.notifyDataSetChanged();
+            deleteImage(position);
         }
 
         return super.onContextItemSelected(item);

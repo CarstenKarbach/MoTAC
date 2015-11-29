@@ -471,4 +471,6 @@ POSSIBILITY OF SUCH DAMAGES.\n
     <string name="label_game">Game</string>
     <string name="label_part">Part</string>
     <string name="exported_games_title">Exported games</string>
+    <string name="deleteall">Delete all</string>
+    <string name="reallydelete">Do you really want to delete all exports?</string>
 </resources>

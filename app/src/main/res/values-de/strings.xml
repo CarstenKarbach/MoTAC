@@ -156,4 +156,6 @@ Teile sind urheberrechtlich und als Geschmacksmuster geschützt.
     <string name="label_part">Abschnitt</string>
     <string name="exported_games_title">Letzte Spiele</string>
     <string name="delete">Löschen</string>
+    <string name="deleteall">Alle löschen</string>
+    <string name="reallydelete">Wirklich alle Bilder löschen?</string>
 </resources>
