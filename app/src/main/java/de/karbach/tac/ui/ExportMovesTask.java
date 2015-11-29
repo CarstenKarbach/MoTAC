@@ -246,7 +246,16 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
         return expectedSize;
     }
 
-    protected String generateBitmap(int beginStep, int lastStep, BoardWithCards drawboard, String filename){
+    /**
+     * Draw one set of exported bitmaps.
+     * @param beginStep first step to export
+     * @param lastStep last step to export
+     * @param drawboard the board used for draw calls
+     * @param filename the filename to store the image at
+     * @param publishProgress if true, publish the progress according to the total number of images to draw for an entire export
+     * @return the name of the image file
+     */
+    protected String generateBitmap(int beginStep, int lastStep, BoardWithCards drawboard, String filename, boolean publishProgress){
         int steps = lastStep-beginStep+1;
 
         int rows = steps/imagesPerRow;
@@ -292,6 +301,9 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
             }
             else{
                 moreToPaint = false;
+            }
+            if(publishProgress){
+                publishProgress(movePos*100/cdata.getCurrentHistorySize());
             }
             pos++;
             movePos++;
@@ -376,13 +388,11 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
                 lastStep = steps-1;
             }
             String filename = getFilenameFor(getTodayFormatted(), exportID, i+1);
-            generateBitmap(beginStep, lastStep, drawboard, filename);
+            generateBitmap(beginStep, lastStep, drawboard, filename, true);
 
             File file = new File(picDir, filename);
 
             result.add(file.getAbsolutePath());
-
-            publishProgress( (i+1)*100 / parts);
         }
 
         publishProgress(100);
