@@ -16,58 +16,53 @@
         android:contentDescription="@string/preview"
         />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp" android:layout_weight="35"
         android:layout_height="@dimen/move_list_height"
-        android:orientation="vertical"
-        android:weightSum="100"
-        android:gravity="center"
+        android:gravity="top"
         >
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="30"
+            android:layout_height="wrap_content"
             android:gravity="left"
             android:text="@string/label_date"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
+            android:layout_alignParentTop="true"
             />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_weight="70"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/emptyid"
             android:id="@+id/text_date"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
+            android:layout_alignParentBottom="true"
             />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp" android:layout_weight="30"
         android:layout_height="@dimen/move_list_height"
-        android:orientation="vertical"
-        android:weightSum="100"
-        android:gravity="center"
         >
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="30"
+            android:layout_height="wrap_content"
             android:gravity="left"
             android:text="@string/label_game"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
+            android:layout_alignParentTop="true"
             />
 
         <TextView
-            android:layout_width="match_parent" android:layout_weight="70"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/emptyid"
             android:id="@+id/text_id"
@@ -75,37 +70,35 @@
             android:textSize="30sp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
+            android:layout_alignParentBottom="true"
             />
-        </LinearLayout>
+        </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp" android:layout_weight="15"
         android:layout_height="@dimen/move_list_height"
-        android:orientation="vertical"
-        android:weightSum="100"
-        android:gravity="center"
         >
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="30"
+            android:layout_height="wrap_content"
             android:gravity="left"
             android:text="@string/label_part"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
+            android:layout_alignParentTop="true"
             />
 
     <TextView
-        android:layout_width="match_parent" android:layout_weight="70"
-        android:layout_height="0dp"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/emptyid"
         android:id="@+id/text_part"
         android:textSize="15sp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
+        android:layout_alignParentBottom="true"
         />
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
