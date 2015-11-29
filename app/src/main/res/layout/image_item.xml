@@ -13,6 +13,7 @@
         android:scaleType="fitCenter"
         android:layout_weight="20"
         android:padding="4dp"
+        android:contentDescription="@string/preview"
         />
 
     <LinearLayout

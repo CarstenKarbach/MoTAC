@@ -24,6 +24,7 @@ package de.karbach.tac.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -189,7 +190,8 @@ public class CardStackView extends View{
 		cardHeight = height;
 	}
 	
-	protected void onDraw(Canvas canvas) {
+	@SuppressLint("DrawAllocation")
+    protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		if(cards == null){
 			return;
@@ -235,7 +237,7 @@ public class CardStackView extends View{
 			int cy = y+(i/perLine)*cardHeight;
 			Card card = theCards.get(i);
 			boolean drawText = Card.getCardType()==1;
-			card.draw(this.getContext(), canvas, cardWidth-horSpace, cardHeight-vertSpace, x, cy, 0, drawText);
+			card.draw(this.getContext(), canvas, cardWidth - horSpace, cardHeight - vertSpace, x, cy, 0, drawText);
 			
 			dst.set(x,cy,x+cardWidth-horSpace,cy+cardHeight-vertSpace);
 			rectsForCards.add(new Rect(dst));

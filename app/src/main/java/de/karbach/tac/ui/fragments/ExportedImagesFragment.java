@@ -84,7 +84,7 @@ public class ExportedImagesFragment extends ListFragment{
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.image_item, null);
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.image_item, parent, false);
             }
 
             String filepath = getItem(position);

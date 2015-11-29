@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import de.karbach.tac.R;
 import de.karbach.tac.core.BoardData;
@@ -451,7 +452,7 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
      * @return formatted date string for today's date
      */
     public static String getTodayFormatted(){
-        return new SimpleDateFormat("yyyy_MM_dd").format(new Date());
+        return new SimpleDateFormat("yyyy_MM_dd", Locale.US).format(new Date());
     }
 
     /**

@@ -158,4 +158,11 @@ Teile sind urheberrechtlich und als Geschmacksmuster geschützt.
     <string name="delete">Löschen</string>
     <string name="deleteall">Alle löschen</string>
     <string name="reallydelete">Wirklich alle Bilder löschen?</string>
+    <string name="displayedimage">Gezeigtes Bild</string>
+    <string name="preview">Vorschau</string>
+    <string name="card">Karte</string>
+    <string name="second_ball">Zweiter Ball</string>
+    <string name="main_ball">Erster Ball</string>
+    <string name="ok">OK</string>
+    <string name="movenumber_description">Zahl für große oder invalide Züge</string>
 </resources>

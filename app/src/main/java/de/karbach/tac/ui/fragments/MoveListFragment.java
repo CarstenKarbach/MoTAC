@@ -88,7 +88,7 @@ public class MoveListFragment extends ListFragment{
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if(convertView == null){
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.move_item, null);
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.move_item, parent, false);
             }
 
             Move m = getItem(position);

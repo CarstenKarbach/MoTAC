@@ -13,6 +13,7 @@
         android:src="@drawable/board"
         android:scaleType="fitCenter"
         android:id="@+id/board_image"
+        android:contentDescription="@string/displayedimage"
         />
 
 </LinearLayout>

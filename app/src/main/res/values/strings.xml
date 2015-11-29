@@ -19,7 +19,7 @@
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
@@ -155,7 +155,7 @@ components are protected by copyright and by design patent.
 </string>
 																						
 	<!-- License texts -->
-<string name="license_short">
+<string name="license_short" tools:ignore="MissingTranslation" translatable="false">
 MoTAC - digital board for TAC board game\n
 Copyright (C) 2013-2014  Carsten Karbach\n
 \n    
@@ -178,7 +178,7 @@ You should have received a copy of the GNU General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 </string>
-<string name="license_long">
+<string name="license_long" translatable="false">
 TAC is a registered trade mark of TAC Verlag / Karl Wenning, all 
 components are protected by copyright and by design patent.\n
 \n
@@ -195,7 +195,7 @@ components are protected by copyright and by design patent.\n
   The licenses for most software are designed to take away your
 freedom to share and change it.  By contrast, the GNU General Public
 License is intended to guarantee your freedom to share and change free
-software--to make sure the software is free for all its users.  This
+software—to make sure the software is free for all its users.  This
 General Public License applies to most of the Free Software
 Foundation\'s software and to any other program whose authors commit to
 using it.  (Some other Free Software Foundation software is covered by
@@ -473,4 +473,9 @@ POSSIBILITY OF SUCH DAMAGES.\n
     <string name="exported_games_title">Exported games</string>
     <string name="deleteall">Delete all</string>
     <string name="reallydelete">Do you really want to delete all exports?</string>
+    <string name="displayedimage">Displayed Image</string>
+    <string name="preview">Preview</string>
+    <string name="card">Card</string>
+    <string name="second_ball">Second ball</string>
+    <string name="main_ball">Main Ball</string>
 </resources>
