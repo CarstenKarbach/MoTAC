@@ -26,8 +26,6 @@
     <color name="trans">#55CC6600</color>
     
     <string name="app_name">MoTAC</string>
-    <string name="modechooser_name">Choose TAC game mode</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings_string">Settings</string>
     <string name="menu_license_string">License</string>
     <string name="backString">One step back</string>
@@ -39,7 +37,6 @@
     <string name="drag">Allow moving the board</string>
     <string name="switchstring">Switch colors of two players</string>
     <string name="menurestartstring">Restart</string>
-    <string name="menutrickserstring">Trickser</string>
     <string name="menuleftstring">Back</string>
     <string name="menurightstring">Forth</string>
     <string name="menuplusstring">In</string>
@@ -48,11 +45,6 @@
     <string name="menuswitchstring">Color</string>
     <string name="menuboardstring">Board</string>
     <string name="menuoverviewstring">Overview</string>
-     <string name="menubluetoothstring">Bluetooth</string>
-    <string name="enable_bluetooth">Enable bluetooth</string>
-    <string name="enable_bluetooth_summ">Enable bluetooth device and allow that your phone is discovered by other devices.</string>
-    <string name="enable_discovery">Enable bluetooth discovery</string>
-    <string name="enable_discovery_summ">Allow that your phone can be discovered by remote devices.</string>
     <string name="discover">Discover other devices</string>
     <string name="local_string">Local</string>
     <string name="network_mode_string">Multiplayer</string>
@@ -61,7 +53,7 @@
     <string name="board_string">Board</string>
     <string name="player_string">Card holder</string>
     <string name="showdev_string">Search for other bluetooth devices</string>
-    <string name="playerchoose">Choose player</string>
+    <string name="exportparttemplate">%1$s/%2$s</string>
     <!-- Preferences -->
     <string name="animatetitle">Animate cards</string>
     <string name="animatesummary">Played cards are animated indicating, which player did the last move.</string>
@@ -157,7 +149,7 @@ components are protected by copyright and by design patent.
 	<!-- License texts -->
 <string name="license_short" tools:ignore="MissingTranslation" translatable="false">
 MoTAC - digital board for TAC board game\n
-Copyright (C) 2013-2014  Carsten Karbach\n
+Copyright © 2013-2015  Carsten Karbach\n
 \n    
 Contact by mail carstenkarbach@gmx.de\n
 \n
@@ -185,7 +177,7 @@ components are protected by copyright and by design patent.\n
                     GNU GENERAL PUBLIC LICENSE\n
                        Version 2, June 1991\n
 \n
- Copyright (C) 1989, 1991 Free Software Foundation, Inc.,
+ Copyright © 1989, 1991 Free Software Foundation, Inc.,
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.\n

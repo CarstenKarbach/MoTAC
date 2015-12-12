@@ -20,11 +20,14 @@
     -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:karbach="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/wood"
-    android:orientation="vertical"
-    android:weightSum="100" >
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@drawable/wood"
+              android:orientation="vertical"
+              android:weightSum="100"
+              android:gravity="center_horizontal"
+              tools:ignore="Overdraw">
 
     <ImageView
         android:id="@+id/teaser"
@@ -36,21 +39,16 @@
         android:scaleType="fitCenter"
         android:src="@drawable/infoteaser" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="50"
-        android:background="@color/trans"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:padding="15dp"
-        android:weightSum="100" >
-
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="100" >
+            android:weightSum="100"
+            android:layout_height="0dip"
+            android:layout_weight="50"
+            android:background="@color/trans"
+            android:gravity="center_horizontal"
+            android:padding="15dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,8 +60,11 @@
                 <TextView
                     android:layout_width="140dp"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
+                    android:paddingEnd="10dp"
                     android:paddingRight="10dp"
+                    android:paddingStart="0dp"
+                    android:paddingLeft="0dp"
                     android:text="@string/info_developer"
                     android:textColor="@color/black"
                     android:textSize="7pt"
@@ -72,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
                     android:shadowColor="#ffcccccc"
                     android:shadowDx="3"
                     android:shadowDy="3"
@@ -92,8 +93,11 @@
                 <TextView
                     android:layout_width="140dp"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
+                    android:paddingEnd="10dp"
                     android:paddingRight="10dp"
+                    android:paddingStart="0dp"
+                    android:paddingLeft="0dp"
                     android:text="@string/info_started"
                     android:textColor="@color/black"
                     android:textSize="7pt"
@@ -102,7 +106,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
                     android:shadowColor="#ffcccccc"
                     android:shadowDx="3"
                     android:shadowDy="3"
@@ -122,8 +126,11 @@
                 <TextView
                     android:layout_width="140dp"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
+                    android:paddingEnd="10dp"
                     android:paddingRight="10dp"
+                    android:paddingStart="0dp"
+                    android:paddingLeft="0dp"
                     android:text="@string/info_support"
                     android:textColor="@color/black"
                     android:textSize="7pt"
@@ -132,7 +139,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
                     android:shadowColor="#ffcccccc"
                     android:shadowDx="3"
                     android:shadowDy="3"
@@ -152,8 +159,11 @@
                 <TextView
                     android:layout_width="140dp"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
                     android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="0dp"
+                    android:paddingLeft="0dp"
                     android:text=""
                     android:textSize="7pt"
                     android:textStyle="bold" />
@@ -161,7 +171,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
                     android:shadowColor="#ffcccccc"
                     android:shadowDx="3"
                     android:shadowDy="3"
@@ -181,8 +191,11 @@
                 <TextView
                     android:layout_width="140dp"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
                     android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="0dp"
+                    android:paddingLeft="0dp"
                     android:text="@string/info_version"
                     android:textColor="@color/black"
                     android:textSize="7pt"
@@ -192,7 +205,7 @@
                     android:id="@+id/info_version_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
                     android:shadowColor="#ffcccccc"
                     android:shadowDx="3"
                     android:shadowDy="3"
@@ -201,7 +214,6 @@
                     android:textColor="@color/black"
                     android:textSize="7pt" />
             </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

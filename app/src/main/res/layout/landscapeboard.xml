@@ -20,11 +20,13 @@
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:karbach="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/wood"
-    android:orientation="horizontal"
-    android:weightSum="100" >
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@drawable/wood"
+              android:orientation="horizontal"
+              android:weightSum="100"
+              tools:ignore="Overdraw">
 
     <de.karbach.tac.ui.BoardWithCards
         android:id="@+id/tac"
@@ -39,7 +41,11 @@
         android:layout_weight="40"
         android:weightSum="100"
         android:orientation="vertical"
-        android:paddingRight="2dip" >
+        android:paddingRight="2dip"
+        android:paddingEnd="2dip"
+        android:paddingStart="0dp"
+        android:paddingLeft="0dp"
+        >
         
         
 	    <LinearLayout
@@ -144,7 +150,7 @@
 	    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:gravity="right"
+        android:gravity="end"
         android:layout_weight="10"
         android:weightSum="70"
         android:paddingBottom="2dp" >
@@ -156,7 +162,7 @@
                 android:id="@+id/progressBar"
                 android:layout_weight="30"
                 android:visibility="invisible"
-                android:layout_gravity="left|bottom"
+                android:layout_gravity="start|bottom"
                 android:progress="0"
                 android:padding="4dp"
                 />

@@ -99,8 +99,9 @@ public class ExportedImagesFragment extends ListFragment{
             TextView gameIDText = (TextView) convertView.findViewById(R.id.text_id);
 
             dateText.setText(ExportMovesTask.getDateFromFilename(filepath, true));
-            partText.setText(ExportMovesTask.getPartIDFromFilename(filepath)+"/"+
-                    ExportMovesTask.getPartcountForFilename(filepath, getActivity()));
+            partText.setText( String.format( getString(R.string.exportparttemplate),
+                    ExportMovesTask.getPartIDFromFilename(filepath),
+                    ExportMovesTask.getPartcountForFilename(filepath, getActivity()) ) );
             gameIDText.setText(ExportMovesTask.getGameIDFromFilename(filepath));
 
             return convertView;

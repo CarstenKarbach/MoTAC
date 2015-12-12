@@ -497,7 +497,7 @@ public class Board extends View implements DataChangeListener{
 		imgView.setImageBitmap(paintBMP);
 		//Create and show the toast in the screen's center
 		Toast imgToast = new Toast(getContext());
-		imgToast.setGravity(Gravity.RIGHT|Gravity.BOTTOM, 0, 0);
+		imgToast.setGravity(Gravity.END|Gravity.BOTTOM, 0, 0);
 		imgToast.setDuration(Toast.LENGTH_SHORT);
 		imgToast.setView(imgView);
 

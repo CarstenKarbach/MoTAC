@@ -22,8 +22,6 @@
 <resources>
 
     <string name="app_name">MoTAC</string>
-    <string name="modechooser_name">Wähle Spielmodus</string>
-    <string name="hello_world">Hallo Welt!</string>
     <string name="menu_settings_string">Einstellungen</string>
     <string name="menu_license_string">Lizenz</string>
     <string name="backString">zurück</string>
@@ -35,7 +33,6 @@
     <string name="drag">Brett bewegen, skalieren</string>
     <string name="switchstring">Spielerfarben ändern</string>
     <string name="menurestartstring">Neustart</string>
-    <string name="menutrickserstring">Trickser</string>
     <string name="menuleftstring">Zurück</string>
     <string name="menurightstring">Vorwärts</string>
     <string name="menuplusstring">Zoom in</string>
@@ -44,11 +41,6 @@
     <string name="menuswitchstring">Farbe</string>
     <string name="menuboardstring">Spielfeld</string>
     <string name="menuoverviewstring">Überblick</string>
-     <string name="menubluetoothstring">Bluetooth</string>
-    <string name="enable_bluetooth">Aktiviere Bluetooth</string>
-    <string name="enable_bluetooth_summ">Aktivieren von Bluetooth und Erlauben, dass andere Geräte dieses Gerät finden können.</string>
-    <string name="enable_discovery">Aktivieren von Bluetooth Suche</string>
-    <string name="enable_discovery_summ">Erlauben, dass dieses Gerät per Bluetooth von anderen gefunden werden kann.</string>
     <string name="discover">Andere Geräte finden</string>
     <string name="local_string">Lokal</string>
     <string name="network_mode_string">Mehrspieler</string>
@@ -57,7 +49,7 @@
     <string name="board_string">Brett</string>
     <string name="player_string">Kartenhalter</string>
     <string name="showdev_string">Suchen anderer Bluetooth Geräte</string>
-    <string name="playerchoose">Spieler wählen</string>
+    <string name="exportparttemplate">%1$s/%2$s</string>
     <!-- Preferences -->
     <string name="animatetitle">Karten animieren</string>
     <string name="animatesummary">Beim Spielen einer Karte wird diese vom Startfeld des aktiven Spielers zur Mitte bewegt.</string>
