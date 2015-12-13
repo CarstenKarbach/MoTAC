@@ -64,7 +64,7 @@ public class Board extends View implements DataChangeListener{
 	/**
 	 * Background board image
 	 */
-	private Drawable boardPic;
+	private Bitmap boardPic;
 
 	/**
 	 * Logical board data painted by this board
@@ -186,7 +186,7 @@ public class Board extends View implements DataChangeListener{
 		firstDraw = true;
 
 		Resources res = getContext().getResources();
-		boardPic = res.getDrawable(de.karbach.tac.R.drawable.board);
+		boardPic = BitmapFactory.decodeResource(this.getResources(), de.karbach.tac.R.drawable.board);
 
 		//Load card pictures
 		backsideBMP = BitmapFactory.decodeResource(res, de.karbach.tac.R.drawable.backside);
@@ -332,8 +332,9 @@ public class Board extends View implements DataChangeListener{
 		//Shadow drawn
 		
 		paint.setColor(Color.WHITE);
-		boardPic.setBounds(upperLeft.x, upperLeft.y,lowerRight.x, lowerRight.y );
-		boardPic.draw(canvas);
+        helpRect1.set(0, 0, boardPic.getWidth() - 1, boardPic.getHeight() - 1);
+        helpRect2.set(upperLeft.x, upperLeft.y, lowerRight.x, lowerRight.y);
+        canvas.drawBitmap(boardPic, helpRect1, helpRect2, paint);
 
 		int circleRadius = min/50;
 		scaledRadius = (int)(viewdata.getScalex()*circleRadius);

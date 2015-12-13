@@ -265,7 +265,6 @@ public class NetworkBoard extends LocalBoard{
 				public void onClick(DialogInterface dialog, int which) {
 				}
 			});
-			builder.setInverseBackgroundForced(true);
 			builder.create();
 			builder.show();
 		}

@@ -345,7 +345,6 @@ public class CardHolder extends Fragment{
 					clientConnect( items[which].toString() );
 				}
 			});
-			builder.setInverseBackgroundForced(true);
 			builder.setPositiveButton("Update", new OnClickListener() {
 				
 				@Override

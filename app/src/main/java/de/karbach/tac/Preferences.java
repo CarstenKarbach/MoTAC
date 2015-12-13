@@ -38,10 +38,12 @@ public class Preferences extends PreferenceActivity {
 	 */
 	public static final String CARDDIRECTPLAY_KEY = "play_directly";
 	
-	@Override
+	@SuppressWarnings("deprecation")
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Use of deprecated function here, because support library does not contain PreferenceActivity
+        //See http://developer.android.com/guide/topics/ui/settings.html that PreferenceFragment is only available for API version >=11
         addPreferencesFromResource(R.xml.preferences);
     }
 

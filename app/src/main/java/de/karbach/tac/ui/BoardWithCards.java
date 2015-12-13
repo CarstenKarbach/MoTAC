@@ -59,7 +59,7 @@ public class BoardWithCards extends Board {
     }
 
     public void setAnimateCards(boolean animateCards) {
-        this.animateCards = animateCards;
+        this.animateCards = false;
     }
 
     /**
