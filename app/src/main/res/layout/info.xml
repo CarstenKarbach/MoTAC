@@ -39,27 +39,33 @@
         android:scaleType="fitCenter"
         android:src="@drawable/infoteaser" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="50">
+
+        <TableLayout
+            android:layout_width="match_parent"
             android:orientation="vertical"
-            android:weightSum="100"
-            android:layout_height="0dip"
-            android:layout_weight="50"
+            android:layout_height="wrap_content"
             android:background="@color/trans"
             android:gravity="center_horizontal"
-            android:padding="15dp"
+            android:layout_margin="16dp"
+            android:padding="16dp"
             >
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="20"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="100" >
+                android:stretchColumns="*"
+                android:layout_margin="4dp"
+                >
 
                 <TextView
-                    android:layout_width="140dp"
+                    android:layout_width="0dip"
                     android:layout_height="match_parent"
+                    android:layout_weight="50"
                     android:gravity="center_vertical|start"
                     android:paddingEnd="10dp"
                     android:paddingRight="10dp"
@@ -71,8 +77,9 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dip"
                     android:layout_height="match_parent"
+                    android:layout_weight="50"
                     android:gravity="center_vertical|start"
                     android:shadowColor="#ffcccccc"
                     android:shadowDx="3"
@@ -81,18 +88,20 @@
                     android:text="@string/info_developer_value"
                     android:textColor="@color/black"
                     android:textSize="7pt" />
-            </LinearLayout>
+            </TableRow>
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="20"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="100" >
+                android:stretchColumns="*"
+                android:layout_margin="4dp"
+                >
 
                 <TextView
-                    android:layout_width="140dp"
+                    android:layout_width="0dip"
                     android:layout_height="match_parent"
+                    android:layout_weight="50"
                     android:gravity="center_vertical|start"
                     android:paddingEnd="10dp"
                     android:paddingRight="10dp"
@@ -104,8 +113,9 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dip"
                     android:layout_height="match_parent"
+                    android:layout_weight="50"
                     android:gravity="center_vertical|start"
                     android:shadowColor="#ffcccccc"
                     android:shadowDx="3"
@@ -114,18 +124,20 @@
                     android:text="@string/info_started_value"
                     android:textColor="@color/black"
                     android:textSize="7pt" />
-            </LinearLayout>
+            </TableRow>
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="20"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="100" >
+                android:stretchColumns="*"
+                android:layout_margin="4dp"
+                >
 
                 <TextView
-                    android:layout_width="140dp"
+                    android:layout_width="0dip"
                     android:layout_height="match_parent"
+                    android:layout_weight="50"
                     android:gravity="center_vertical|start"
                     android:paddingEnd="10dp"
                     android:paddingRight="10dp"
@@ -137,8 +149,9 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dip"
                     android:layout_height="match_parent"
+                    android:layout_weight="50"
                     android:gravity="center_vertical|start"
                     android:shadowColor="#ffcccccc"
                     android:shadowDx="3"
@@ -147,18 +160,20 @@
                     android:text="@string/info_support_value"
                     android:textColor="@color/black"
                     android:textSize="7pt" />
-            </LinearLayout>
+            </TableRow>
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="20"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="100" >
+                android:stretchColumns="*"
+                android:layout_margin="4dp"
+                >
 
                 <TextView
-                    android:layout_width="140dp"
+                    android:layout_width="0dip"
                     android:layout_height="match_parent"
+                    android:layout_weight="50"
                     android:gravity="center_vertical|start"
                     android:paddingRight="10dp"
                     android:paddingEnd="10dp"
@@ -169,8 +184,9 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dip"
                     android:layout_height="match_parent"
+                    android:layout_weight="50"
                     android:gravity="center_vertical|start"
                     android:shadowColor="#ffcccccc"
                     android:shadowDx="3"
@@ -179,18 +195,20 @@
                     android:text="@string/info_support_value2"
                     android:textColor="@color/black"
                     android:textSize="7pt" />
-            </LinearLayout>
+            </TableRow>
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="20"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="100" >
+                android:stretchColumns="*"
+                android:layout_margin="4dp"
+                >
 
                 <TextView
-                    android:layout_width="140dp"
+                    android:layout_width="0dip"
                     android:layout_height="match_parent"
+                    android:layout_weight="50"
                     android:gravity="center_vertical|start"
                     android:paddingRight="10dp"
                     android:paddingEnd="10dp"
@@ -203,8 +221,9 @@
 
                 <TextView
                     android:id="@+id/info_version_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dip"
                     android:layout_height="match_parent"
+                    android:layout_weight="50"
                     android:gravity="center_vertical|start"
                     android:shadowColor="#ffcccccc"
                     android:shadowDx="3"
@@ -213,7 +232,9 @@
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="7pt" />
-            </LinearLayout>
-    </LinearLayout>
+            </TableRow>
+    </TableLayout>
+
+    </ScrollView>
 
 </LinearLayout>

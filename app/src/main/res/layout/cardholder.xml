@@ -27,18 +27,18 @@
               android:weightSum="100"
               tools:ignore="Overdraw">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="15"
-        android:gravity="center"
-        android:weightSum="80" >
+        >
 
         <de.karbach.tac.ui.EnDisImageButton
             android:id="@+id/showDevButton"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:background="@null"
             android:clickable="true"
             android:contentDescription="@string/showdev_string"
@@ -47,22 +47,24 @@
 
         <Spinner
             android:id="@+id/playerid"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="60"
+            android:layout_toRightOf="@id/showDevButton"
+            android:layout_toEndOf="@id/showDevButton"
             android:entries="@array/player_ids" />
 
         <de.karbach.tac.ui.EnDisImageButton
             android:id="@+id/showPlayer"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:background="@null"
             android:clickable="false"
             android:contentDescription="@string/showplayer"
             android:scaleType="fitCenter"
             android:src="@drawable/red" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/connectText"

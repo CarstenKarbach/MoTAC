@@ -27,12 +27,12 @@
               android:weightSum="100"
               tools:ignore="Overdraw">
 
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:gravity="center"
         android:layout_weight="15"
-        android:weightSum="70"
+        android:stretchColumns="*"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp" >
@@ -117,7 +117,7 @@
 	            karbach:activeimage="@drawable/button_color"
 	            />
 
-    </LinearLayout>
+    </TableRow>
 
     <de.karbach.tac.ui.BoardWithCards
         android:id="@+id/tac"
@@ -126,12 +126,12 @@
         android:layout_weight="75"
         android:layout_marginTop="3dp" />
     
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:gravity="end"
         android:layout_weight="10"
-        android:weightSum="80"
+        android:stretchColumns="*"
         android:paddingRight="2dp"
         android:paddingEnd="2dp"
         android:paddingBottom="2dp"
@@ -179,6 +179,6 @@
 	        android:scaleType="fitCenter"
 	        android:src="@drawable/ic_more"
             />
-    </LinearLayout>
+    </TableRow>
 
 </LinearLayout>

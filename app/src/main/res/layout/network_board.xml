@@ -27,18 +27,19 @@
     tools:ignore="Overdraw"
     >
 
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:gravity="center"
         android:layout_weight="10"
-        android:weightSum="80" >
+        android:stretchColumns="*"
+        >
 
         <de.karbach.tac.ui.EnDisImageButton
             android:id="@+id/trickser"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_weight="1"
             android:background="@null"
             android:clickable="true"
             android:contentDescription="@string/trickser"
@@ -48,8 +49,8 @@
         <ImageButton
             android:id="@+id/tacButton"
             android:layout_width="0dip"
-            android:layout_weight="10"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/restartString"
             android:scaleType="fitCenter"
@@ -58,8 +59,8 @@
         <de.karbach.tac.ui.EnDisImageButton
             android:id="@+id/leftButton"
             android:layout_width="0dip"
-            android:layout_weight="10"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/backString"
             android:scaleType="fitCenter"
@@ -68,8 +69,8 @@
         <de.karbach.tac.ui.EnDisImageButton
             android:id="@+id/rightButton"
             android:layout_width="0dip"
-            android:layout_weight="10"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/forward"
             android:scaleType="fitCenter"
@@ -78,8 +79,8 @@
         <ImageButton
             android:id="@+id/plusButton"
             android:layout_width="0dip"
-            android:layout_weight="10"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/plus"
             android:scaleType="fitCenter"
@@ -88,8 +89,8 @@
         <ImageButton
             android:id="@+id/minusButton"
             android:layout_width="0dip"
-            android:layout_weight="10"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/minus"
             android:scaleType="fitCenter"
@@ -98,8 +99,8 @@
         <de.karbach.tac.ui.EnDisImageButton
             android:id="@+id/moveButton"
             android:layout_width="0dip"
-            android:layout_weight="10"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@null"
             android:clickable="true"
             android:contentDescription="@string/drag"
@@ -109,15 +110,15 @@
         <de.karbach.tac.ui.EnDisImageButton
             android:id="@+id/switchButton"
             android:layout_width="0dip"
-            android:layout_weight="10"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@null"
             android:clickable="true"
             android:contentDescription="@string/switchstring"
             android:scaleType="fitCenter"
             android:src="@drawable/button_color" />
 
-    </LinearLayout>
+    </TableRow>
 
     <de.karbach.tac.ui.BoardWithCards
         android:id="@+id/tac"
@@ -126,12 +127,12 @@
         android:layout_weight="80"
         android:layout_marginTop="3dp" />
     
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:gravity="center"
         android:layout_weight="10"
-        android:weightSum="80" >
+        android:stretchColumns="*" >
 
         <de.karbach.tac.ui.EnDisImageButton
             android:id="@+id/discoverButton"
@@ -177,6 +178,6 @@
             android:scaleType="fitCenter"
             android:src="@drawable/narr" />
 
-    </LinearLayout>
+    </TableRow>
 
 </LinearLayout>

@@ -18,14 +18,14 @@
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:karbach="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:background="@drawable/wood"
               android:orientation="horizontal"
-              android:weightSum="100"
+              android:stretchColumns="*"
               tools:ignore="Overdraw">
 
     <de.karbach.tac.ui.BoardWithCards
@@ -48,12 +48,12 @@
         >
         
         
-	    <LinearLayout
+	    <TableRow
 	        android:layout_height="0dip"
 	        android:layout_width="match_parent"
 	        android:gravity="center"
 	        android:layout_weight="20"
-	        android:weightSum="70"
+	        android:stretchColumns="*"
 	        >
 	
 	        <de.karbach.tac.ui.EnDisImageButton
@@ -136,7 +136,7 @@
 	            karbach:activeimage="@drawable/button_color"
 	            />
 	
-	    </LinearLayout>
+	    </TableRow>
 	    
 	    <LinearLayout
 		    android:layout_weight="70"
@@ -147,12 +147,12 @@
 		    
 		</LinearLayout>
 		
-	    <LinearLayout
+	    <TableRow
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:gravity="end"
         android:layout_weight="10"
-        android:weightSum="70"
+        android:stretchColumns="*"
         android:paddingBottom="2dp" >
 
             <ProgressBar
@@ -195,8 +195,8 @@
 	        android:scaleType="fitCenter"
 	        android:src="@drawable/ic_more"
             />
-    </LinearLayout>
+    </TableRow>
 	    
 	</LinearLayout>
 
-</LinearLayout>
+</TableRow>

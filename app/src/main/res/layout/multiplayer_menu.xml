@@ -50,12 +50,12 @@
         android:text="@string/player_string"
         android:layout_weight="15"/>
 
-    <LinearLayout
+    <TableRow
     android:layout_width="match_parent"
     android:layout_height="0dip"
     android:background="@drawable/wood"
     android:orientation="horizontal"
-    android:weightSum="100"
+    android:stretchColumns="*"
     android:layout_weight="50" >
 	    <ImageView
 	       	android:contentDescription="@string/app_name"
@@ -71,6 +71,6 @@
 	        android:layout_height="match_parent"
 	        android:layout_weight="50"
 	        android:src="@drawable/normalcards_trickser" />
-	</LinearLayout>
+	</TableRow>
 
 </LinearLayout>
