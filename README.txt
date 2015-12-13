@@ -73,8 +73,8 @@ Teile sind urheberrechtlich und als Geschmacksmuster geschützt.
 
 Setup for development
 
-- Install the Eclipse ADT bundle available from https://developer.android.com/sdk/index.html
-- Install Android SDK version 4.4.2 from your SDK Manager
-- Import project into Eclipse
-- Add android-support-v4.jar library to ./libs folder and into build properties
+- Install Android Studio 1.4 available from http://developer.android.com/sdk/index.html
+- Install Android SDK version 4.1.2 for API level 16 from your SDK Manager or any other version >= 10
+- Import project into Android Studio
+- Build the application with Gradle
 
