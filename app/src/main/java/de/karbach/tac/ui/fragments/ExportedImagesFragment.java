@@ -126,13 +126,15 @@ public class ExportedImagesFragment extends ListFragment{
         super.onCreate(savedInstance);
 
         setHasOptionsMenu(true);
-        setListAdapter(new ExportImageAdapter(files) );
+        setListAdapter(new ExportImageAdapter(files));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View result = super.onCreateView(inflater, container, savedInstanceState);
-
+        if(result == null){
+            return null;
+        }
         ListView listview = (ListView) result.findViewById(android.R.id.list);
         registerForContextMenu(listview);
 
@@ -149,12 +151,13 @@ public class ExportedImagesFragment extends ListFragment{
        }
 
         File file = new File(files.get(position));
-        file.delete();
+        boolean result = file.delete();
+        if(result) {
+            files.remove(position);
 
-        files.remove(position);
-
-        ExportImageAdapter adapter = (ExportImageAdapter)getListAdapter();
-        adapter.notifyDataSetChanged();
+            ExportImageAdapter adapter = (ExportImageAdapter) getListAdapter();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override

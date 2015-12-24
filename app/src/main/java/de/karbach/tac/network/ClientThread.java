@@ -50,7 +50,7 @@ public class ClientThread extends Thread{
 	
 	@Override
 	public void run(){
-		Scanner input = null;
+		Scanner input;
 		try {
 			input = new Scanner(client.getSocket().getInputStream());
 		} catch (IOException e) {

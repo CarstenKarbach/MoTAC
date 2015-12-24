@@ -277,7 +277,7 @@ public class EnDisImageButton extends ImageButton{
 	 */
 	public void draw (Canvas canvas){
 		
-		boolean drawActive = false;
+		boolean drawActive;
 		
 		if(active && !(blinking && !blinkOn)){ //No active color if blinking is enabled and blinkOn is off
 			drawActive = true;

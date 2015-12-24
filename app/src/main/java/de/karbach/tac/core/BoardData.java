@@ -150,8 +150,8 @@ public class BoardData implements Serializable{
     public static <T extends Serializable> T copy(T toCopy){
         //Serialize this object to bytearray
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oOut = null;
-        byte[] byteOutput = null;
+        ObjectOutputStream oOut;
+        byte[] byteOutput;
         try {
             oOut = new ObjectOutputStream(bos);
             oOut.writeObject(toCopy);
@@ -162,9 +162,8 @@ public class BoardData implements Serializable{
             return null;
         }
         //Unserialize it and return the unserialized object
-        ObjectInputStream oIn = null;
         try {
-            oIn = new ObjectInputStream(new ByteArrayInputStream(byteOutput));
+            ObjectInputStream oIn = new ObjectInputStream(new ByteArrayInputStream(byteOutput));
             T loaded = (T) oIn.readObject();
 
             return loaded;

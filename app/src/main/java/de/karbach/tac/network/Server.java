@@ -270,7 +270,7 @@ public class Server extends Connector{
 			public void run() {
 
 				isListening = true;
-				BluetoothSocket socket = null;
+				BluetoothSocket socket;
 				// Keep listening until exception occurs
 				while (isListening) {
 					try {

@@ -204,9 +204,13 @@ public class LocalBoard extends Fragment {
     	Bitmap bitmapOrg = BitmapFactory.decodeResource(getResources(), drawableId);
     	int width = bitmapOrg.getWidth();
     	int height = bitmapOrg.getHeight();
-    	
-    	double widthFactor = getView().getWidth()/(double) width;
-    	double heightFactor = getView().getHeight()/(double) height;
+
+        View rootView = getView();
+        int viewWidth = rootView==null?1:rootView.getWidth();
+        int viewHeight = rootView==null?1:rootView.getHeight();
+
+    	double widthFactor = viewWidth/(double) width;
+    	double heightFactor = viewHeight/(double) height;
     	double factor = widthFactor;
     	if(heightFactor < widthFactor){
     		factor = heightFactor;
@@ -327,14 +331,12 @@ public class LocalBoard extends Fragment {
     		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 	        builder.setMessage(messageId);
 	        
-	        android.content.DialogInterface.OnClickListener nextClickListener = null;
+	        android.content.DialogInterface.OnClickListener nextClickListener;
 	        int negString = R.string.ok;
 			//Show rest of help dialogs
 	        if(buttonNames.length > 1){
 				final String[] rest = new String[buttonNames.length-1];
-				for(int i=1; i<buttonNames.length; i++){
-					rest[i-1] = buttonNames[i];
-				}
+                System.arraycopy(buttonNames, 1, rest, 0, rest.length);
 	        	nextClickListener = new android.content.DialogInterface.OnClickListener() {
 					
 					@Override

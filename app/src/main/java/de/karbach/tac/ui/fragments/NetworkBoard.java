@@ -256,10 +256,10 @@ public class NetworkBoard extends LocalBoard{
 		}
 
 		if(items.length == 0){
-			Toast.makeText(getView().getContext(), "No other device found", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getContext(), "No other device found", Toast.LENGTH_SHORT).show();
 		}
 		else{
-			AlertDialog.Builder builder = new AlertDialog.Builder(getView().getContext());
+			AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 			builder.setTitle(R.string.Devices);
 			builder.setItems(items, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {

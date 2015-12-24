@@ -212,7 +212,7 @@ public class PlayerThread extends Thread implements DataChangeListener{
 	
 	@Override
 	public void run() {
-		Scanner input = null;
+		Scanner input;
 		try {
 			input = new Scanner(socket.getInputStream());
 		} catch (IOException e) {

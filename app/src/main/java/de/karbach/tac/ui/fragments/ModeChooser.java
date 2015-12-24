@@ -62,9 +62,12 @@ public class ModeChooser extends Fragment{
 	 * Define the actions of the buttons for choosing the game mode.
 	 */
 	protected void initButtonActions(){
-
+        View rootView = getView();
+        if(rootView == null){
+            return;
+        }
 		//Go to normal game if clicked on local button
-		Button localButton = (Button)getView().findViewById(R.id.localButton);
+		Button localButton = (Button)rootView.findViewById(R.id.localButton);
 		localButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -81,7 +84,7 @@ public class ModeChooser extends Fragment{
 			}
 		});
 		//Start network choose menu
-		Button networkButton = (Button)getView().findViewById(R.id.networkButton);
+		Button networkButton = (Button)rootView.findViewById(R.id.networkButton);
 		networkButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

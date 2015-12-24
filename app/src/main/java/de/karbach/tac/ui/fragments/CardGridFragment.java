@@ -134,7 +134,7 @@ public class CardGridFragment extends Fragment implements DataChangeListener{
 	 * Update the view for this fragment
 	 */
 	public void updateView(){
-		if(CardGridFragment.this == null || CardGridFragment.this.getView() == null){
+		if(CardGridFragment.this.getView() == null){
 			return;
 		}
 		CardStackView cardstackView = (CardStackView)CardGridFragment.this.getView().findViewById(R.id.cardgridstack);

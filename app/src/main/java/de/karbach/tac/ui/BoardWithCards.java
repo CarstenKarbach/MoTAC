@@ -121,7 +121,7 @@ public class BoardWithCards extends Board {
 							playerId = newCard.getPlayedById();
 						}
 						
-						Point start = null;
+						Point start;
 						//Change animation start, if player is known
 						switch(playerId){
 						case 0:

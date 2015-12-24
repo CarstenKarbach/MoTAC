@@ -38,13 +38,17 @@ public class ImageViewFragment extends Fragment {
         //Show the image
         ImageView image = (ImageView) result.findViewById(R.id.board_image);
 
-        File imgFile = new  File(imagepath);
-        if(imgFile.exists()){
-            Bitmap boardBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            image.setImageBitmap(boardBitmap);
+        if(imagepath == null){
+            image.setImageResource(R.drawable.backside);
         }
-        else{
-            image.setBackgroundResource(R.drawable.board);
+        else {
+            File imgFile = new File(imagepath);
+            if (imgFile.exists()) {
+                Bitmap boardBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                image.setImageBitmap(boardBitmap);
+            } else {
+                image.setBackgroundResource(R.drawable.board);
+            }
         }
 
         return result;

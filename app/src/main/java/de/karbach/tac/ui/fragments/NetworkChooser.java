@@ -61,9 +61,12 @@ public class NetworkChooser extends Fragment{
      * Define the actions of the buttons for choosing the network mode.
      */
     protected void initButtonActions(){
-    	
+    	View rootView = getView();
+        if(rootView == null){
+            return;
+        }
     	//Go to network board with additional buttons and bluetooth support
-    	Button boardButton = (Button)getView().findViewById(R.id.boardButton);
+    	Button boardButton = (Button)rootView.findViewById(R.id.boardButton);
     	boardButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -81,7 +84,7 @@ public class NetworkChooser extends Fragment{
 		});
     	
     	//Go to card holder for client
-    	Button cardButton = (Button)getView().findViewById(R.id.cardHolderButton);
+    	Button cardButton = (Button)rootView.findViewById(R.id.cardHolderButton);
     	cardButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

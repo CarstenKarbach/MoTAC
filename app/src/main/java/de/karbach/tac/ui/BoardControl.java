@@ -340,7 +340,7 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
 
 		FragmentManager fm = fragment.getActivity().getSupportFragmentManager();
 
-		CardStack cards = null;
+		CardStack cards;
 
 		if(useDialog){
 
@@ -645,14 +645,17 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
      */
     public void makeAndShowBoardImage(boolean onlyUpdateTask){
         View fragmentview = fragment.getView();
-        ProgressBar progressbar = (ProgressBar) fragmentview.findViewById(R.id.progressBar);
-        if(progressbar != null) {
-            progressbar.setProgress(0);
+        ProgressBar progressbar = null;
+        if(fragmentview != null) {
+            progressbar = (ProgressBar) fragmentview.findViewById(R.id.progressBar);
+            if (progressbar != null) {
+                progressbar.setProgress(0);
+            }
         }
 
         ExportMovesTask exporter = ExportMovesTask.getInstance();//Might return null
         if(exporter != null){//Needed tio check, whether an instance existed before
-            exporter = ExportMovesTask.createInstance(data.copy(), viewdata.copy(), fragment.getActivity(), this, progressbar);
+            ExportMovesTask.createInstance(data.copy(), viewdata.copy(), fragment.getActivity(), this, progressbar);
             if(progressbar != null){
                 progressbar.setVisibility(ProgressBar.VISIBLE);
             }
@@ -675,37 +678,46 @@ public class BoardControl extends SimpleOnGestureListener implements OnDismissLi
      */
     public void showExports(){
         List<String> exports = ExportMovesTask.getStoredImages(fragment.getActivity(), true);
-        //Sort first by date, then by game id, then reverse ordered by part id
-        Collections.sort(exports, new Comparator<String>() {
-            @Override
-            public int compare(String lhs, String rhs) {
-                String ldate = ExportMovesTask.getDateFromFilename(lhs, false);
-                String rdate = ExportMovesTask.getDateFromFilename(rhs, false);
+        if(exports != null) {
+            //Sort first by date, then by game id, then reverse ordered by part id
+            Collections.sort(exports, new Comparator<String>() {
+                @Override
+                public int compare(String lhs, String rhs) {
+                    String ldate = ExportMovesTask.getDateFromFilename(lhs, false);
+                    String rdate = ExportMovesTask.getDateFromFilename(rhs, false);
 
-                int cmp = rdate.compareTo(ldate);
-                if (cmp != 0) {
-                    return cmp;
+                    int cmp = rdate.compareTo(ldate);
+                    if (cmp != 0) {
+                        return cmp;
+                    }
+
+                    int lgame = Integer.parseInt(ExportMovesTask.getGameIDFromFilename(lhs));
+                    int rgame = Integer.parseInt(ExportMovesTask.getGameIDFromFilename(rhs));
+
+                    if (lgame < rgame) {
+                        return 1;
+                    }
+                    if (lgame > rgame) {
+                        return -1;
+                    }
+
+                    Integer lpart = Integer.parseInt(ExportMovesTask.getPartIDFromFilename(lhs));
+                    Integer rpart = Integer.parseInt(ExportMovesTask.getPartIDFromFilename(rhs));
+                    //Show smaller part number first
+                    return lpart.compareTo(rpart);
                 }
-
-                int lgame = Integer.parseInt(ExportMovesTask.getGameIDFromFilename(lhs));
-                int rgame = Integer.parseInt(ExportMovesTask.getGameIDFromFilename(rhs));
-
-                if (lgame < rgame) {
-                    return 1;
-                }
-                if (lgame > rgame) {
-                    return -1;
-                }
-
-                Integer lpart = Integer.parseInt(ExportMovesTask.getPartIDFromFilename(lhs));
-                Integer rpart = Integer.parseInt(ExportMovesTask.getPartIDFromFilename(rhs));
-                //Show smaller part number first
-                return lpart.compareTo(rpart);
-            }
-        });
+            });
+        }
 
         Intent intent = new Intent(fragment.getActivity(), ExportedImagesActivity.class);
-        intent.putStringArrayListExtra(ExportedImagesActivity.FILE_LIST, new ArrayList<String>(exports));
+        ArrayList<String> files;
+        if(exports == null){
+            files = new ArrayList<String>();
+        }
+        else{
+            files = new ArrayList<String>(exports);
+        }
+        intent.putStringArrayListExtra(ExportedImagesActivity.FILE_LIST, files);
         fragment.getActivity().startActivity(intent);
     }
 

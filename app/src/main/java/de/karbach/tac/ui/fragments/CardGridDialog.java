@@ -27,6 +27,7 @@ import java.util.List;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
@@ -195,7 +196,8 @@ public class CardGridDialog extends DialogFragment{
 		super.onResume();
 	}
 	
-	@Override
+	@NonNull
+    @Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 	  Dialog dialog = super.onCreateDialog(savedInstanceState);
 

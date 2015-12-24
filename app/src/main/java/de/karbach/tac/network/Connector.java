@@ -142,9 +142,9 @@ public class Connector {
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(requestCode == REQUEST_ENABLE_BT){
 			isAskingForBT = false;
-			if(resultCode == Activity.RESULT_OK || resultCode == REQUEST_DISCOVERY_DURATION){
+			/*if(resultCode == Activity.RESULT_OK || resultCode == REQUEST_DISCOVERY_DURATION){
 				//Now this device can be discovered
-			}
+			}*/
 		}
 	}
 	

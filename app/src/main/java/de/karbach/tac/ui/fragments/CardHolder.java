@@ -235,12 +235,16 @@ public class CardHolder extends Fragment{
         
 		initButtonActions();
 		addBroadcastListeners();
-		
-		//Init cardholder view 
-		stackView = (CardStackView)getView().findViewById(R.id.cardstack);
-		connectionText = (TextView) getView().findViewById(R.id.connectText);
-		playerPicture = (EnDisImageButton) getView().findViewById(R.id.showPlayer);
-		
+
+        View rootView = getView();
+
+        if(rootView != null) {
+            //Init cardholder view
+            stackView = (CardStackView) rootView.findViewById(R.id.cardstack);
+            connectionText = (TextView) rootView.findViewById(R.id.connectText);
+            playerPicture = (EnDisImageButton) rootView.findViewById(R.id.showPlayer);
+        }
+
 		stackController = new CardStackControl(stackView, client);
 		gdt = new GestureDetector(stackView.getContext(), stackController);
 		
@@ -402,9 +406,12 @@ public class CardHolder extends Fragment{
 	 * Define actions for all bluetooth activities.
 	 */
 	protected void initButtonActions(){
-
+        View rootView = getView();
+        if(rootView == null){
+            return;
+        }
 		//Search for available bluetooth devices
-		searchButton = (EnDisImageButton)getView().findViewById(R.id.showDevButton);
+		searchButton = (EnDisImageButton)rootView.findViewById(R.id.showDevButton);
 		searchButton.setActive(false);
 		searchButton.setBlinking(true);
 		searchButton.setOnClickListener(new View.OnClickListener() {
@@ -426,7 +433,7 @@ public class CardHolder extends Fragment{
 		});
 		
 		//Player chooser
-		Spinner playerSpinner = (Spinner) getView().findViewById(R.id.playerid);
+		Spinner playerSpinner = (Spinner) rootView.findViewById(R.id.playerid);
 		
 		playerSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 

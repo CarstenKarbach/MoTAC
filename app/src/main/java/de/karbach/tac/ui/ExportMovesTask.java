@@ -191,23 +191,20 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
                 if(moveBarHeight-2*textPadding < ballWidth){
                     ballWidth = moveTextWidth-2*textPadding;
                 }
-                if (ballIds == null) {
+                if (ballIds.length >= 1) {
+                    bm = drawboard.getBallbitmapForId(ballIds[0]);
+                }
+                if (bm == null) {
                     bm = drawboard.getBallbitmapForId(R.drawable.grey);
-                } else {
-                    if (ballIds.length >= 1) {
-                        bm = drawboard.getBallbitmapForId(ballIds[0]);
-                    }
-                    if (bm == null) {
-                        bm = drawboard.getBallbitmapForId(R.drawable.grey);
-                    }
+                }
 
-                    if (ballIds.length >= 2) {
-                        Bitmap bm2 = drawboard.getBallbitmapForId(ballIds[1]);
-                        Rect src = new Rect(0,0, bm2.getWidth()-1, bm2.getHeight()-1);
-                        Rect dst = new Rect(ball2X, ballTop, ball2X+ballWidth-1, ballTop+ballWidth-1);
-                        if (bm2 != null) {
-                            canvas.drawBitmap(bm2, src, dst, paint);
-                        }
+                if (ballIds.length >= 2) {
+                    Bitmap bm2 = drawboard.getBallbitmapForId(ballIds[1]);
+                    Rect src = new Rect(0,0, bm2.getWidth()-1, bm2.getHeight()-1);
+                    Rect dst = new Rect(ball2X, ballTop, ball2X+ballWidth-1, ballTop+ballWidth-1);
+                    //noinspection ConstantConditions
+                    if (bm2 != null) {//This might be null, but is not detected by inspector, if getBallbitmapForId returns null
+                        canvas.drawBitmap(bm2, src, dst, paint);
                     }
                 }
                 if (bm != null) {
@@ -578,16 +575,18 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
         List<String> images = getStoredImages(context, false);
         String prefixToday = filePrefix+"_"+getTodayFormatted();
         int maxid = 0;
-        for(String filename: images){
-            if(filename.startsWith(prefixToday)){
-                String[] parts = filename.split("_");
-                if(parts.length < 6){
-                    continue;
-                }
-                String id = parts[5];
-                int idvalue = Integer.valueOf(id);
-                if(idvalue > maxid){
-                    maxid = idvalue;
+        if(images != null) {
+            for (String filename : images) {
+                if (filename.startsWith(prefixToday)) {
+                    String[] parts = filename.split("_");
+                    if (parts.length < 6) {
+                        continue;
+                    }
+                    String id = parts[5];
+                    int idvalue = Integer.valueOf(id);
+                    if (idvalue > maxid) {
+                        maxid = idvalue;
+                    }
                 }
             }
         }
@@ -603,7 +602,7 @@ public class ExportMovesTask extends AsyncTask<Void,Integer,List<String>> {
      * @return true on success, false, if an error occurred
      */
     protected boolean saveBitmapToFile(Bitmap bitmap, String filename){
-        boolean mExternalStorageWriteable = false;
+        boolean mExternalStorageWriteable;
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             mExternalStorageWriteable = true;
