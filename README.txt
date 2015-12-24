@@ -1,6 +1,7 @@
-********* English version *********************************************************
+# English version 
+* * *
 
-MoTAC - digital board for TAC board game
+## MoTAC - digital board for TAC board game
 
 MoTAC is a mobile board for the TAC board game. 
 This app and your TAC cards is all you need to play TAC everywhere.
@@ -33,9 +34,10 @@ leisure project. Therefore, time for future development will be limited.
 TAC is a registered trade mark of TAC Verlag / Karl Wenning, all 
 components are protected by copyright and by design patent.
 
-********* Deutsche Version *********************************************************
+# Deutsche Version 
+* * *
 
-MoTAC - ein mobiles Spielbrett für TAC
+## MoTAC - ein mobiles Spielbrett für TAC
 
 Mit MoTAC geht das Brettspiel TAC ganz einfach auf Reisen. 
 Nur die Karten und diese App einpacken und TAC Spielen wird überall möglich.
@@ -69,7 +71,7 @@ ein Freizeitprojekt. Zeit für zukünftige Entwicklungen ist entsprechend begren
 TAC ist eine eingetragene Marke des TAC Verlag / Karl Wenning, sämtliche
 Teile sind urheberrechtlich und als Geschmacksmuster geschützt.
 
-***************************************************************************************
+* * *
 
 Setup for development
 
