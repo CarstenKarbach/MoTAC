@@ -684,12 +684,15 @@ public class Card implements Serializable{
 			}
 		}
 		canvas.drawBitmap(copied, matrix, paint);
+
 		//Better rendering for texts without rotation
 		if(drawText && rotation == 0){
 			float textSize = Math.round(cardHeight*textSizeFactor);
 			paint.setTextSize(textSize);
 			canvas.drawText(toString(), xpos+cardWidth/2, ypos+cardHeight/2-textSize, paint);
 		}
+
+        copied = null;
 	}
 
 	/**

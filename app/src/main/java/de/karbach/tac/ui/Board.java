@@ -64,7 +64,7 @@ public class Board extends View implements DataChangeListener{
 	/**
 	 * Background board image
 	 */
-	private Bitmap boardPic;
+	private static Bitmap boardPic = null;
 
 	/**
 	 * Logical board data painted by this board
@@ -186,7 +186,9 @@ public class Board extends View implements DataChangeListener{
 		firstDraw = true;
 
 		Resources res = getContext().getResources();
-		boardPic = BitmapFactory.decodeResource(this.getResources(), de.karbach.tac.R.drawable.board);
+        if(boardPic == null) {
+            boardPic = BitmapFactory.decodeResource(this.getResources(), de.karbach.tac.R.drawable.board);
+        }
 
 		//Load card pictures
 		backsideBMP = BitmapFactory.decodeResource(res, de.karbach.tac.R.drawable.backside);
