@@ -18,9 +18,12 @@
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:compat="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_exportedimages_delete_all"
-        android:title="@string/deleteall"/>
+        android:title="@string/deleteall"
+        compat:showAsAction="ifRoom"/>
 </menu>

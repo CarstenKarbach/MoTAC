@@ -7,8 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.ContextMenu;
@@ -166,9 +169,11 @@ public class ExportedImagesFragment extends ListFragment{
 
         String file = files.get(position);
         File f = new File(file);
+        Uri fileUri = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? FileProvider.getUriForFile(getActivity(), getActivity().getPackageName()+".provider", f) : Uri.fromFile(f);
         Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setAction(android.content.Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(f), "image/png");
+        intent.setDataAndType(fileUri, "image/png");
         getActivity().startActivity(intent);
     }
 
